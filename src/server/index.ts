@@ -4,10 +4,14 @@ import ENV from '../server/env.config';
 
 const app = express();
 
-app.use(express.static(path.resolve(__dirname, 'src/client/public')));
+app.use(express.static(path.resolve(ENV.ROOTDIR, 'dist', 'build')));
 
 app.get('/hello', (req, res) => {
   res.send('Hello');
+});
+
+app.get('/', function (req, res) {
+  res.sendFile(path.join(ENV.ROOTDIR, 'dist', 'build', 'index.html'));
 });
 
 app.listen(ENV.PORT, () => {
