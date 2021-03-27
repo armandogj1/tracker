@@ -1,0 +1,39 @@
+{
+  "name": "tracker_backend",
+  "version": "1.0.0",
+  "description": "Issue tracker Backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "build": "tsc",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/armandogj1/tracker.git"
+  },
+  "keywords": [
+    "typescript"
+  ],
+  "author": "Armando Garcia-Jacquier",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/armandogj1/tracker/issues"
+  },
+  "homepage": "https://github.com/armandogj1/tracker#readme",
+  "devDependencies": {
+    "@types/express": "^4.17.11",
+    "@types/jest": "^26.0.22",
+    "@types/mongoose": "^5.10.4",
+    "@types/node": "^14.14.36",
+    "eslint": "^7.22.0",
+    "jest": "^26.6.3",
+    "ts-jest": "^26.5.4",
+    "typescript": "^4.2.3"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.12.2"
+  }
+}
