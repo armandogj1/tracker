@@ -5,6 +5,7 @@ export interface ITicket extends Document {
   title: string;
   description: string;
   link: string;
+  status: string;
 }
 
 const TicketSchema: Schema = new Schema({
@@ -12,6 +13,7 @@ const TicketSchema: Schema = new Schema({
   title: { type: String, require: true },
   description: String,
   link: String,
+  status: String,
 });
 
 const Ticket: Model<ITicket> = model('Ticket', TicketSchema);
@@ -31,6 +33,7 @@ const BoardSchema: Schema = new Schema({
   tickets: {
     type: Map,
     of: TicketSchema,
+    default: {},
   },
   statuses: { type: Array, of: String },
 });

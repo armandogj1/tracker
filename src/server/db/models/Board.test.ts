@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
-import { createBoard } from './Board';
+import { createBoard, deleteBoard, getBoard } from './Board';
 
-beforeAll(async () => {
-  await mongoose.connect('mongodb://localhost:27017/testDB', {
+beforeAll(() => {
+  return mongoose.connect('mongodb://localhost:27017/testDBBoard', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
@@ -33,7 +33,27 @@ test('should add a Board to database', async (done) => {
   done();
 });
 
-afterAll(async () => {
-  await mongoose.connection.dropCollection('boards');
-  await mongoose.connection.close();
+test('should remove board', async (done) => {
+  const board = {
+    board_id: 2,
+    title: 'board to remove',
+    description: '',
+    statuses: ['added', 'applied', 'interview', 'offer', 'rejected'],
+  };
+
+  await createBoard(board);
+
+  const savedBoard = await getBoard(board.board_id);
+  await deleteBoard(board.board_id);
+  const invalidQuery = await getBoard(board.board_id);
+
+  expect(savedBoard?.board_id).toBe(board.board_id);
+  expect(invalidQuery).toBeNull();
+  done();
+});
+
+afterAll(() => {
+  return mongoose.connection.dropDatabase().then(() => {
+    return mongoose.connection.close();
+  });
 });
