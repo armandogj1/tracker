@@ -1,4 +1,4 @@
-import { getBoard, createBoard, deleteBoard } from '../db/models/Board';
+import { getBoard, createBoard, deleteBoard, updateBoard } from '../db/models/Board';
 import { Request, Response } from 'express';
 
 const getBoardController = async (req: Request, res: Response) => {
@@ -19,14 +19,39 @@ const getBoardController = async (req: Request, res: Response) => {
   }
 };
 
-const deleteBoardController = async (req: Request, res: Response) => {
+const postBoardController = async (req: Request, res: Response) => {
   try {
-    await deleteBoard(req.body.board_id);
+    const board = await createBoard(req.body);
 
-    res.status(200).send('board deleted');
+    res.status(200).send(board);
   } catch (e) {
     res.status(400).send(e.message);
   }
 };
 
-export { getBoardController, deleteBoardController };
+const putBoardController = async (req: Request, res: Response) => {
+  try {
+    const board = await updateBoard(req.body);
+
+    res.status(200).send(board);
+  } catch (e) {
+    res.status(400).send(e.message);
+  }
+};
+
+const deleteBoardController = async (req: Request, res: Response) => {
+  try {
+    await deleteBoard(req.body.board_id);
+
+    res.status(200).send(`board ${req.body.board_id} deleted`);
+  } catch (e) {
+    res.status(400).send(e.message);
+  }
+};
+
+export {
+  getBoardController,
+  deleteBoardController,
+  postBoardController,
+  putBoardController,
+};

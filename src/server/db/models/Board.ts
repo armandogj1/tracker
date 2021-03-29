@@ -27,4 +27,19 @@ const deleteBoard = async (id: number): Promise<IBoard> => {
   return board;
 };
 
-export { createBoard, getBoard, deleteBoard };
+const updateBoard = async ({ board_id, title, description, statuses }: BoardInputs) => {
+  const board = await getBoard(board_id);
+
+  if (!board) {
+    throw new Error('Error board not found');
+  }
+
+  board.title = title;
+  board.description = description;
+  board.statuses = statuses;
+  await board.save();
+
+  return board;
+};
+
+export { createBoard, getBoard, deleteBoard, updateBoard };

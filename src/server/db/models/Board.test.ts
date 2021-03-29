@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { createBoard, deleteBoard, getBoard } from './Board';
+import { createBoard, deleteBoard, getBoard, updateBoard } from './Board';
 
 beforeAll(() => {
   return mongoose.connect('mongodb://localhost:27017/testDBBoard', {
@@ -49,6 +49,53 @@ test('should remove board', async (done) => {
 
   expect(savedBoard?.board_id).toBe(board.board_id);
   expect(invalidQuery).toBeNull();
+  done();
+});
+
+test('should update board', async (done) => {
+  const board = {
+    board_id: 3,
+    title: 'board to update',
+    description: '',
+    statuses: ['added', 'applied', 'interview', 'offer', 'rejected'],
+  };
+
+  const updateVals = {
+    ...board,
+    description: 'a board to update',
+    statuses: ['offer', 'accepted'],
+  };
+
+  await createBoard(board);
+
+  await updateBoard(updateVals);
+  const updated = await getBoard(board.board_id);
+  if (!updated) {
+    throw new Error('Error updating board');
+  }
+
+  expect(updated.board_id).toBe(board.board_id);
+  expect(updated.title).toBe(updateVals.title);
+  expect(updated.description).toBe(updateVals.description);
+  expect([...updated.statuses]).toEqual(updateVals.statuses);
+
+  done();
+});
+
+test('should NOT update board', async (done) => {
+  const board = {
+    board_id: 8,
+    title: 'board to NOT update',
+    description: '',
+    statuses: ['added', 'applied', 'interview', 'offer', 'rejected'],
+  };
+
+  try {
+    await updateBoard(board);
+  } catch (e) {
+    expect(e.message).toBe('Error board not found');
+  }
+
   done();
 });
 

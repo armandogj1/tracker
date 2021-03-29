@@ -14,7 +14,7 @@ jest.mock('../db/models/Board', () => {
         throw new Error('Error board not found');
       }
 
-      return Promise.resolve(`board ${id} deleted`);
+      return Promise.resolve(id);
     },
   };
 });
@@ -80,11 +80,11 @@ test('Should not delete board', () => {
   expect(res.send).toBeCalledWith('Error board not found');
 });
 
-test('Should delete board', () => {
+test('Should delete board', async () => {
   const req = mockRequest({}, { board_id: 1 });
   const res = mockResponse();
 
-  deleteBoardController(req, res);
+  await deleteBoardController(req, res);
   expect(res.status).toBeCalledTimes(1);
   expect(res.status).toBeCalledWith(200);
   expect(res.send).toBeCalledTimes(1);
