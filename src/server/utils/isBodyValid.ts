@@ -13,19 +13,17 @@ const isBodyValid = (body: BodyInput, type: 'ticket' | 'board') => {
   let validVals;
 
   if (type === 'ticket') {
-    validVals = (
+    validVals =
       typeof title === 'string' &&
       typeof description === 'string' &&
       typeof status === 'string' &&
       typeof link === 'string' &&
-      !isNaN(Number(ticket_id))
-    );
+      !isNaN(Number(ticket_id));
   } else {
-    validVals = (
+    validVals =
       typeof title === 'string' &&
       typeof description === 'string' &&
-      Array.isArray(statuses) &&
-    );
+      Array.isArray(statuses);
   }
 
   return !!body && !isNaN(Number(board_id)) && validVals;

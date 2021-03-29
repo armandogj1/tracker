@@ -1,6 +1,10 @@
 import { Router } from 'express';
 import validateTicket from '../middleware/validateTicket';
-import { getTicketController, deleteTicketController } from '../controller/Ticket';
+import {
+  getTicketController,
+  updateTicketController,
+  deleteTicketController,
+} from '../controller/Ticket';
 const router = Router();
 
 router.use(validateTicket);
