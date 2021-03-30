@@ -1,4 +1,4 @@
-# Ticket Tracker Using TypeScript and React
+# Ticket Tracker Using TypeScript | Node | React | MongoDB
 
 ## Setup
 
