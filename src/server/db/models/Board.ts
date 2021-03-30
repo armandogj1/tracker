@@ -7,7 +7,7 @@ export type BoardInputs = {
   statuses: string[];
 };
 
-const createBoard = async (boardInputs: BoardInputs): Promise<IBoard | Error> => {
+const createBoard = async (boardInputs: BoardInputs): Promise<IBoard> => {
   return Board.create(boardInputs);
 };
 

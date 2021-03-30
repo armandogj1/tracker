@@ -1,7 +1,11 @@
 import express from 'express';
 import path from 'path';
 import ENV from './env.config';
+import dbConnect from './db/index';
 import { ticketRouter, boardRouter } from './routes/index';
+dbConnect().catch(() => {
+  throw new Error('DB not connected');
+});
 
 const app = express();
 console.log('this is root', ENV.ROOTDIR, ENV.PORT, process.env.PORT);
@@ -22,6 +26,8 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(ENV.ROOTDIR, 'dist', 'index.html'));
 });
 
-app.listen(ENV.PORT, () => {
-  console.log(`listening on ${ENV.PORT}`);
-});
+// app.listen(ENV.PORT, () => {
+//   console.log(`listening on ${ENV.PORT}`);
+// });
+
+export default app;

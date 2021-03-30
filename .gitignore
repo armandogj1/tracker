@@ -1,3 +1,9 @@
 node_modules
 dist
 .env
+build
+
+src/server/*.js.*
+src/server/*/*.js.*
+src/server/*.js
+src/server/*/*.js
