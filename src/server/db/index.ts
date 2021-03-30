@@ -10,6 +10,7 @@ const init = () => {
   return connect(ENV.MONGOURL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useCreateIndex: true,
   });
 };
 

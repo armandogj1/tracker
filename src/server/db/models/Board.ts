@@ -1,21 +1,22 @@
 import { Board, IBoard } from '../schema';
 
 export type BoardInputs = {
-  board_id: number;
+  board_id: string;
   title: string;
   description: string;
   statuses: string[];
 };
 
 const createBoard = async (boardInputs: BoardInputs): Promise<IBoard> => {
-  return Board.create(boardInputs);
+  const { board_id, ...inputs } = boardInputs;
+  return Board.create(inputs);
 };
 
-const getBoard = async (id: number): Promise<IBoard | null> => {
+const getBoard = async (id: string): Promise<IBoard | null> => {
   return Board.findOne({ board_id: id }).exec();
 };
 
-const deleteBoard = async (id: number): Promise<IBoard> => {
+const deleteBoard = async (id: string): Promise<IBoard> => {
   const board = await getBoard(id);
 
   if (!board) {

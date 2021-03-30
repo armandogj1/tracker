@@ -2,7 +2,7 @@ import { ITicket, Ticket } from '../schema';
 import { getBoard } from './Board';
 
 type ticketInputs = {
-  ticket_id: number;
+  ticket_id: string;
   description: string;
   title: string;
   link: string;
@@ -14,29 +14,30 @@ const createTicket = async ({
   board_id,
 }: {
   ticket: ticketInputs;
-  board_id: number;
+  board_id: string;
 }): Promise<ITicket> => {
   const board = await getBoard(board_id);
-  const { ticket_id } = ticket;
 
   if (board === null) {
     throw new Error('Board was not found');
   }
+  const { ticket_id, ...tkt } = ticket;
+  const newTicket = new Ticket(tkt);
+  // console.log('call new Ticket', newTicket);
+  board.tickets.set(newTicket.ticket_id, newTicket);
 
-  const newTicket = new Ticket(ticket);
-  board.tickets.set(`${ticket_id}`, newTicket);
   try {
     await board.save();
   } catch (e) {
-    throw new Error('Error saving ticket to board');
+    throw new Error(`Error saving ticket to board: ${e.message}`);
   }
   // return await Ticket.create(ticket);
   return newTicket;
 };
 
 type DeleteInputs = {
-  board_id: number;
-  ticket_id: number;
+  board_id: string;
+  ticket_id: string;
 };
 
 const deleteTicket = async ({ board_id, ticket_id }: DeleteInputs): Promise<ITicket> => {
@@ -45,13 +46,13 @@ const deleteTicket = async ({ board_id, ticket_id }: DeleteInputs): Promise<ITic
   if (board === null) {
     throw new Error('Board was not found');
   }
-  const ticket = board.tickets.get(ticket_id.toString());
+  const ticket = board.tickets.get(ticket_id);
 
   if (!ticket) {
     throw new Error('Ticket not found');
   }
 
-  board.tickets.delete(ticket_id.toString());
+  board.tickets.delete(ticket_id);
   await board.save();
 
   return ticket;
@@ -61,7 +62,7 @@ const updateTicket = async ({
   board_id,
   ticket,
 }: {
-  board_id: number;
+  board_id: string;
   ticket: ticketInputs;
 }): Promise<ITicket> => {
   const board = await getBoard(board_id);
@@ -70,7 +71,7 @@ const updateTicket = async ({
     throw new Error('Error board not found');
   }
 
-  let ticketToUpdate = board.tickets.get(ticket.ticket_id.toString());
+  let ticketToUpdate = board.tickets.get(ticket.ticket_id);
 
   if (!ticketToUpdate) {
     throw new Error('Error ticket not found');

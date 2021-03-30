@@ -18,7 +18,7 @@ const isBodyValid = (body: BodyInput, type: 'ticket' | 'board') => {
       typeof description === 'string' &&
       typeof status === 'string' &&
       typeof link === 'string' &&
-      !isNaN(Number(ticket_id));
+      typeof ticket_id === 'string';
   } else {
     validVals =
       typeof title === 'string' &&
@@ -26,7 +26,7 @@ const isBodyValid = (body: BodyInput, type: 'ticket' | 'board') => {
       Array.isArray(statuses);
   }
 
-  return !!body && !isNaN(Number(board_id)) && validVals;
+  return !!body && typeof board_id === 'string' && validVals;
 };
 
 export default isBodyValid;
