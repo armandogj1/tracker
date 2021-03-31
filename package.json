@@ -8,7 +8,9 @@
     "build:server": "cd src/server && npm run build",
     "build:client": "cd src/client && npm run build && mv build ../../dist",
     "build:all": "npm run build:server && npm run build:client",
-    "start": "node ./src/server/index.js"
+    "start": "node ./src/server/index.js",
+    "dev:server": "cd src/server && npm run dev",
+    "dev:client": "cd src/client && npm start"
   },
   "repository": {
     "type": "git",
@@ -22,5 +24,6 @@
   "bugs": {
     "url": "https://github.com/armandogj1/tracker/issues"
   },
-  "homepage": "https://github.com/armandogj1/tracker#readme"
+  "homepage": "https://github.com/armandogj1/tracker#readme",
+  "dependencies": {}
 }

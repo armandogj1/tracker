@@ -8,7 +8,10 @@ dbConnect().catch(() => {
 });
 
 const app = express();
-console.log('this is root', ENV.ROOTDIR, ENV.PORT, process.env.PORT);
+
+// include cors in development
+import cors from 'cors';
+ENV.DEV && app.use(cors());
 
 // middlewares
 app.use(express.static(path.resolve(ENV.ROOTDIR, 'dist')));

@@ -3,14 +3,14 @@ import { Request, Response } from 'express';
 jest.mock('../db/models/Board', () => {
   return {
     getBoard: (id: any) => {
-      if (typeof id !== 'number') {
+      if (typeof id !== 'string') {
         throw new Error('Error board not found');
       }
 
-      return Promise.resolve(`board ${id}`);
+      return Promise.resolve({ board_id: id });
     },
     deleteBoard: (id: any) => {
-      if (typeof id !== 'number') {
+      if (typeof id !== 'string') {
         throw new Error('Error board not found');
       }
 
@@ -46,19 +46,18 @@ test('Should respond with status 400', () => {
 });
 
 test('Should respond with status 200', async (done) => {
-  const req = mockRequest({}, { board_id: 1 });
+  const req = mockRequest({}, { board_id: '1' });
   const res = mockResponse();
 
   await getBoardController(req, res);
   expect(res.status).toBeCalledTimes(1);
   expect(res.status).toBeCalledWith(200);
   expect(res.send).toBeCalledTimes(1);
-  expect(res.send).toBeCalledWith('board 1');
   done();
 });
 
 test('Should respond with status 400 for invalid id', async (done) => {
-  const req = mockRequest({}, { board_id: '1' });
+  const req = mockRequest({}, { board_id: 1 });
   const res = mockResponse();
 
   await getBoardController(req, res);
@@ -70,7 +69,7 @@ test('Should respond with status 400 for invalid id', async (done) => {
 });
 
 test('Should not delete board', () => {
-  const req = mockRequest({}, { board_id: '1' });
+  const req = mockRequest({}, { board_id: 1 });
   const res = mockResponse();
 
   deleteBoardController(req, res);
@@ -81,7 +80,7 @@ test('Should not delete board', () => {
 });
 
 test('Should delete board', async () => {
-  const req = mockRequest({}, { board_id: 1 });
+  const req = mockRequest({}, { board_id: '1' });
   const res = mockResponse();
 
   await deleteBoardController(req, res);

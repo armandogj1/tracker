@@ -33,11 +33,7 @@ test('Should send status 400 for empty body', () => {
 });
 
 describe('Should send status 400 for invalid payload', () => {
-  const invalidPayloads = [
-    { board_id: 'one' },
-    { statuses: 'added' },
-    { title: ['job'] },
-  ];
+  const invalidPayloads = [{ board_id: 1 }, { statuses: 'added' }, { title: ['job'] }];
 
   invalidPayloads.forEach((payload) => {
     test(`payload: ${JSON.stringify(payload)}`, () => {

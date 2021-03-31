@@ -34,7 +34,7 @@ test('Should send status 400 for empty body', () => {
 
 describe('Should send status 400 for invalid payload', () => {
   const invalidPayloads = [
-    { board_id: 'one' },
+    { board_id: 1 },
     { statuses: 'added' },
     { title: ['job'] },
     { ticket_id: 'two' },
@@ -60,8 +60,8 @@ test('Should call next for valid payload', () => {
   const req = mockRequest(
     {},
     {
-      board_id: 1,
-      ticket_id: 2,
+      board_id: '1',
+      ticket_id: '2',
       link: 'example.com',
       status: 'added',
       description: 'description',

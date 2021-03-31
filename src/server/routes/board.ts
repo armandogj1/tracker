@@ -8,11 +8,13 @@ import {
 } from '../controller/Board';
 const router = Router();
 
+router.get('/:board_id', getBoardController);
+router.delete('/:board_id', deleteBoardController);
+
+// validate remaining routes
 router.use(validateBoard);
 
-router.get('/', getBoardController);
 router.post('/', postBoardController);
 router.put('/', putBoardController);
-router.delete('/', deleteBoardController);
 
 export default router;

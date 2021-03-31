@@ -4,11 +4,11 @@ import cleanDocument from '../utils/cleanDocument';
 
 const getBoardController = async (req: Request, res: Response) => {
   try {
-    if (!req.body.board_id) {
+    if (!req.params.board_id) {
       throw new Error('Error board_id not present');
     }
 
-    const board = await getBoard(req.body.board_id);
+    const board = await getBoard(req.params.board_id);
 
     if (!board) {
       throw new Error('Error board not found');
