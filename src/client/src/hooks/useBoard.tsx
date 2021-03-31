@@ -9,7 +9,7 @@ const useCreateBoard = () => {
 
   return useMutation((board: IBoard) => postBoard(board), {
     onSuccess: (data) => {
-      queryClient.setQueryData('board', data);
+      queryClient.invalidateQueries('board');
     },
   });
 };
