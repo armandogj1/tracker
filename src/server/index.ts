@@ -11,6 +11,7 @@ const app = express();
 
 // include cors in development
 import cors from 'cors';
+import { getBoardIdsController } from './controller/Board';
 ENV.DEV && app.use(cors());
 
 // middlewares
@@ -21,6 +22,7 @@ app.use(express.json());
 app.use('/ticket', ticketRouter);
 app.use('/board', boardRouter);
 
+app.get('/boards', getBoardIdsController);
 app.get('/hello', (req, res) => {
   res.send('Hello');
 });

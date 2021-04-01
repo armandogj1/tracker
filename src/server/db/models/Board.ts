@@ -16,6 +16,14 @@ const getBoard = async (id: string): Promise<IBoard | null> => {
   return Board.findOne({ board_id: id }).exec();
 };
 
+const getBoardIds = async (): Promise<string[][]> => {
+  return Board.find()
+    .exec()
+    .then((boards) => {
+      return boards.map(({ board_id, title }) => [board_id, title]);
+    });
+};
+
 const deleteBoard = async (id: string): Promise<IBoard> => {
   const board = await getBoard(id);
 
@@ -43,4 +51,4 @@ const updateBoard = async ({ board_id, title, description, statuses }: BoardInpu
   return board;
 };
 
-export { createBoard, getBoard, deleteBoard, updateBoard };
+export { createBoard, getBoard, deleteBoard, updateBoard, getBoardIds };

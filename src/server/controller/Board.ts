@@ -1,4 +1,10 @@
-import { getBoard, createBoard, deleteBoard, updateBoard } from '../db/models/Board';
+import {
+  getBoard,
+  createBoard,
+  deleteBoard,
+  updateBoard,
+  getBoardIds,
+} from '../db/models/Board';
 import { Request, Response } from 'express';
 import cleanDocument from '../utils/cleanDocument';
 
@@ -15,6 +21,18 @@ const getBoardController = async (req: Request, res: Response) => {
     }
 
     res.status(200).send(cleanDocument(board));
+  } catch (e) {
+    res.status(400).send(e.message);
+  }
+};
+
+const getBoardIdsController = async (req: Request, res: Response) => {
+  try {
+    // console.log('board ids');
+    const boardIds = await getBoardIds();
+
+    // console.log(boardIds);
+    res.status(200).send(boardIds);
   } catch (e) {
     res.status(400).send(e.message);
   }
@@ -55,4 +73,5 @@ export {
   deleteBoardController,
   postBoardController,
   putBoardController,
+  getBoardIdsController,
 };

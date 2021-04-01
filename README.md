@@ -32,3 +32,5 @@ App's listen invocation had to be done in separate file to facilitate testing
 - State will be centralized using context and useReducer
 - Plan to keep state updates top level, board is returned by most queries
 - I could remove single ticket, will first implement version that rerenders whole board
+- On main page select the board to use or create one
+- In board tickets can be created through a modal or directly in the lists

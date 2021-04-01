@@ -26,6 +26,18 @@ const getBoard = (board_id: string): Promise<IBoard> => {
   return axios.get(URL).then(({ data }) => data);
 };
 
+const getBoardIds = (): Promise<string[][]> => {
+  let URL = `/boards`;
+
+  if (process.env.NODE_ENV !== 'production') {
+    URL = `http://localhost:4000${URL}`;
+  }
+
+  return axios.get(URL).then(({ data }) => {
+    return data;
+  });
+};
+
 const postBoard = (board: IBoard): Promise<IBoard> => {
   let URL = `/board`;
 
@@ -46,4 +58,4 @@ const putBoard = (board: IBoard): Promise<IBoard> => {
   return axios.put(URL, board).then(({ data }) => data);
 };
 
-export { getBoard, postBoard, putBoard };
+export { getBoard, postBoard, putBoard, getBoardIds };

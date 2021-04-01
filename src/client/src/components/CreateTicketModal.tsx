@@ -1,6 +1,6 @@
 import React, { Dispatch, FormEvent, SetStateAction, useState } from 'react';
-import { IBoard } from '../API_Helpers/Board';
-import { useCreateBoard } from '../hooks/useBoard';
+import { ITicket } from '../API_Helpers/Board';
+import { useCreateTicket } from '../hooks/useTicket';
 
 interface IEventTarget {
   target: HTMLInputElement | HTMLTextAreaElement;
@@ -16,6 +16,10 @@ const style = {
     width: '300px',
     padding: '1em',
     color: 'black',
+    'z-index': '3',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50% , -50%)',
   },
   textarea: {
     width: '250px',
@@ -23,71 +27,64 @@ const style = {
   },
 };
 
-const CreateBoardModal = ({
-  setBoardId,
+const CreateTicketModal = ({
+  status,
+  board_id,
+  setCreateOpen,
 }: {
-  setBoardId: Dispatch<SetStateAction<string>>;
+  status: string;
+  board_id: string;
+  setCreateOpen: Dispatch<SetStateAction<boolean>>;
 }) => {
-  const initialBoard: IBoard = {
-    board_id: '',
+  const initialBoard: ITicket = {
+    status,
+    ticket_id: '',
     title: '',
     description: '',
-    tickets: {},
-    statuses: [],
+    link: '',
   };
-  const [board, setBoard] = useState(initialBoard);
-  const { mutateAsync } = useCreateBoard();
+  const [ticket, setTicket] = useState(initialBoard);
+  const { mutateAsync } = useCreateTicket();
 
   const handleChange = (e: IEventTarget) => {
     if (!e) return;
 
-    let newValue: string | string[] = e.target?.value;
-
-    if (e.target?.name === 'statuses') {
-      newValue = newValue.split(',');
-    }
-
-    const newBoard = {
-      ...board,
-      [e.target?.name]: newValue,
+    const newTicket = {
+      ...ticket,
+      [e.target?.name]: e.target.value,
     };
 
-    setBoard(newBoard);
+    setTicket(newTicket);
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    mutateAsync(board).then(({ board_id }) => setBoardId(board_id));
+    mutateAsync({ ticket, board_id }).then(() => setCreateOpen((prev) => !prev));
   };
 
   return (
     <form className='modal' style={style.main} onSubmit={handleSubmit}>
       <label>
         Title:
-        <input type='text' name='title' value={board.title} onChange={handleChange} />
+        <input type='text' name='title' value={ticket.title} onChange={handleChange} />
       </label>
       <label>
-        Statuses:
-        <input
-          type='text'
-          name='statuses'
-          value={board.statuses.join(',')}
-          placeholder='comma separated values'
-          onChange={handleChange}
-        />
+        Link:
+        <input type='text' name='link' value={ticket.link} onChange={handleChange} />
       </label>
       <label>
         Description:
         <textarea
           style={style.textarea}
           name='description'
-          value={board.description}
+          value={ticket.description}
           onChange={handleChange}
         />
       </label>
       <input type='submit' value='Submit' />
+      <button onClick={() => setCreateOpen((prev) => !prev)}>Cancel</button>
     </form>
   );
 };
 
-export default CreateBoardModal;
+export default CreateTicketModal;

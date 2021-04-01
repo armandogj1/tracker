@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import logo from './logo.svg';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import './App.css';
 import Board from './components/Board';
-import CreateBoardModal from './components/CreateBoardModal';
+import SelectOrCreate from './components/SelectOrCreate';
 
 const queryClient = new QueryClient();
 
@@ -18,7 +17,7 @@ function App() {
           {boardId ? (
             <Board boardId={boardId} />
           ) : (
-            <CreateBoardModal setBoardId={setBoardId} />
+            <SelectOrCreate setBoardId={setBoardId} />
           )}
         </header>
       </div>

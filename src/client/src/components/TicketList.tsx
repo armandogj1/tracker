@@ -1,23 +1,69 @@
-import React from 'react';
+import React, { DragEventHandler, useState } from 'react';
+import { useUpdateTicket } from '../hooks/useTicket';
+import CreateTicketModal from './CreateTicketModal';
 import Ticket from './Ticket';
 import { ITicket } from './TicketLists';
 
 const style = {
-  width: '200px',
-  border: '1px solid black',
-  backgroundColor: '#fff',
-  color: 'black',
+  main: {
+    width: '300px',
+    border: '1px solid black',
+    backgroundColor: '#fff',
+    color: 'black',
+  },
+  ul: {
+    // 'list-style': 'none',
+  },
+  button: {
+    width: '100px',
+  },
 };
 
-const TicketList = ({ tickets }: { tickets: ITicket[] }) => {
+const TicketList = ({
+  tickets,
+  status,
+  board_id,
+}: {
+  tickets: ITicket[];
+  status: string;
+  board_id: string;
+}) => {
+  const [isCreateOpen, setCreateOpen] = useState(false);
+  const { mutate } = useUpdateTicket();
+
+  const handleDragOver: DragEventHandler<HTMLElement> = (e) => {
+    e.preventDefault();
+  };
+
+  const handleDrop: DragEventHandler<HTMLElement> = (e) => {
+    const tixString = e.dataTransfer.getData('text/plain');
+    console.log(tixString);
+    const newTicket = JSON.parse(tixString);
+    newTicket.status = status;
+
+    mutate({ board_id, ticket: newTicket });
+  };
+
   return (
-    <ul style={style}>
-      {tickets.map((tix) => (
-        <li key={tix.ticket_id}>
-          <Ticket {...tix} />
-        </li>
-      ))}
-    </ul>
+    <div style={style.main} onDragOver={handleDragOver} onDrop={handleDrop}>
+      {isCreateOpen && (
+        <CreateTicketModal
+          status={status}
+          board_id={board_id}
+          setCreateOpen={setCreateOpen}
+        />
+      )}
+      <ul style={style.ul}>
+        {tickets.map((tix) => (
+          <li key={tix.ticket_id}>
+            <Ticket {...tix} />
+          </li>
+        ))}
+      </ul>
+      <button style={style.button} onClick={() => setCreateOpen((prev) => !prev)}>
+        +
+      </button>
+    </div>
   );
 };
 
