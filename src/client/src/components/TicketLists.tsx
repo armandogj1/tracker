@@ -1,6 +1,5 @@
 import React from 'react';
 import { useQueryClient } from 'react-query';
-import Ticket from './Ticket';
 import TicketList from './TicketList';
 
 export interface ITicket {
@@ -21,7 +20,7 @@ interface ITickets {
 const style = {
   display: 'grid',
   backgroundColor: '#ffffff80',
-  // 'min-width': '100vw',
+  maxWidth: '100vw',
   'grid-auto-flow': 'column',
 };
 
@@ -31,10 +30,10 @@ const TicketLists = ({ board_id }: { board_id: string }) => {
     statuses = [],
     tickets = {} as ITickets,
   }: { statuses?: string[]; tickets?: ITickets } =
-    queryClient.getQueryData(['board', board_id]) || {};
+    queryClient.getQueryData(['board']) || {};
 
   return (
-    <section style={style}>
+    <section className='tix-lists' style={style}>
       {statuses.map((status) => {
         const filteredTix = Object.values(tickets).filter((tix) => tix.status === status);
 

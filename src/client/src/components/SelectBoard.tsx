@@ -50,7 +50,7 @@ const SelectBoard = ({
   };
 
   return (
-    <form style={style.form} onSubmit={handleSubmit}>
+    <form className='modal' style={style.form} onSubmit={handleSubmit}>
       <label>
         Pick Board:
         <select

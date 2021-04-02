@@ -17,9 +17,6 @@ const style = {
     padding: '1em',
     color: 'black',
     'z-index': '3',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50% , -50%)',
   },
   textarea: {
     width: '250px',

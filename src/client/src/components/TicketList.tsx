@@ -7,8 +7,7 @@ import { ITicket } from './TicketLists';
 const style = {
   main: {
     width: '300px',
-    border: '1px solid black',
-    backgroundColor: '#fff',
+    backgroundColor: '#cdcdcd',
     color: 'black',
   },
   ul: {
@@ -45,7 +44,13 @@ const TicketList = ({
   };
 
   return (
-    <div style={style.main} onDragOver={handleDragOver} onDrop={handleDrop}>
+    <div
+      className='list'
+      style={style.main}
+      onDragOver={handleDragOver}
+      onDrop={handleDrop}
+    >
+      <h2>{status}</h2>
       {isCreateOpen && (
         <CreateTicketModal
           status={status}
@@ -56,7 +61,7 @@ const TicketList = ({
       <ul style={style.ul}>
         {tickets.map((tix) => (
           <li key={tix.ticket_id}>
-            <Ticket {...tix} />
+            <Ticket {...tix} status={status} />
           </li>
         ))}
       </ul>

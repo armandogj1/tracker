@@ -10,7 +10,7 @@ const useCreateTicket = () => {
       postTicket({ ticket, board_id }),
     {
       onSuccess: (data, { board_id }) => {
-        queryClient.invalidateQueries(['board', board_id]);
+        queryClient.invalidateQueries(['board']);
       },
     }
   );
@@ -23,8 +23,8 @@ const useUpdateTicket = () => {
     ({ ticket, board_id }: { ticket: ITicket; board_id: string }) =>
       putTicket({ ticket, board_id }),
     {
-      onSuccess: (data, { board_id }) => {
-        queryClient.invalidateQueries(['board', board_id]);
+      onSuccess: () => {
+        queryClient.invalidateQueries(['board']);
       },
     }
   );

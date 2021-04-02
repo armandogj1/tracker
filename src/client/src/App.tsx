@@ -13,13 +13,11 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <div className='App'>
-        <header className='App-header'>
-          {boardId ? (
-            <Board boardId={boardId} />
-          ) : (
-            <SelectOrCreate setBoardId={setBoardId} />
-          )}
-        </header>
+        {boardId ? (
+          <Board boardId={boardId} />
+        ) : (
+          <SelectOrCreate setBoardId={setBoardId} />
+        )}
       </div>
       {process.env.NODE_ENV !== 'production' && (
         <ReactQueryDevtools initialIsOpen={false} />

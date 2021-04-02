@@ -22,7 +22,7 @@ const SelectOrCreate = ({
 
   if (!selected) {
     return (
-      <section>
+      <section className='select-create'>
         <button style={style.button} onClick={() => setSelected('create')}>
           Create Board
         </button>
@@ -34,7 +34,7 @@ const SelectOrCreate = ({
   }
 
   return (
-    <section>
+    <section className='selectOrCreate'>
       {selected === 'create' ? (
         <CreateBoardModal setBoardId={setBoardId} />
       ) : (

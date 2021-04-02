@@ -23,7 +23,7 @@ const createTicket = async ({
   }
   const { ticket_id, ...tkt } = ticket;
   const newTicket = new Ticket(tkt);
-  console.log('call new Ticket', newTicket);
+
   board.tickets.set(newTicket.ticket_id, newTicket);
 
   try {

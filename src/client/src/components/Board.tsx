@@ -10,9 +10,10 @@ const Board = ({ boardId }: { boardId: string }) => {
   const { board_id, title, description } = data;
 
   return (
-    <section>
-      <h1>{title}</h1>
-      <p>{description}</p>
+    <section className='board'>
+      <header>
+        <h1>{title}</h1>
+      </header>
       <TicketLists board_id={board_id} />
     </section>
   );
