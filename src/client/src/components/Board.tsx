@@ -9,7 +9,7 @@ const Board = ({ boardId }: { boardId: string }) => {
 
   if (isError || !data) return <p>Some went wrong</p>;
 
-  const { board_id, title, description } = data;
+  const { board_id, title } = data;
 
   return (
     <section className='board'>

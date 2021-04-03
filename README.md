@@ -34,3 +34,9 @@ App's listen invocation had to be done in separate file to facilitate testing
 - I could remove single ticket, will first implement version that rerenders whole board
 - On main page select the board to use or create one
 - In board tickets can be created through a modal or directly in the lists
+
+### Tracking data
+
+- On status change add a time stamp
+- Use it to display progress on an application basis
+- For the purpose of the chart only display their current status time stamp

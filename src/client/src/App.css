@@ -30,6 +30,12 @@ section {
   width: 100vw;
 }
 
+.board header button {
+  position: absolute;
+  top: 1.75em;
+  right: 1em;
+}
+
 .board h1 {
   height: 2.5em;
   line-height: 2.5em;
@@ -100,4 +106,5 @@ textarea {
   flex-direction: column;
   height: 90%;
   color: #fff;
+  align-items: center;
 }
