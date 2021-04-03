@@ -5,8 +5,8 @@ const cleanDocument = (doc: IBoard | ITicket) => {
     const { board_id, title, description, statuses, tickets } = doc;
     return { board_id, title, description, statuses: [...statuses], tickets };
   } else {
-    const { ticket_id, title, description, link, status } = doc;
-    return { ticket_id, title, description, link, status };
+    const { ticket_id, title, description, link, status, timestamps } = doc;
+    return { ticket_id, title, description, link, status, timestamps };
   }
 };
 

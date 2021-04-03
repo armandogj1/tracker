@@ -9,7 +9,7 @@ const style = {
   padding: '10px',
 };
 
-const Ticket = ({ ticket_id, description, title, link, status }: ITicket) => {
+const Ticket = ({ ticket_id, description, title, link, status, timestamps }: ITicket) => {
   const [isOpen, setOpen] = useState(false);
 
   const handleDrag: DragEventHandler<HTMLElement> = (e) => {
@@ -33,7 +33,7 @@ const Ticket = ({ ticket_id, description, title, link, status }: ITicket) => {
       <h3>{title}</h3>
       {isOpen && (
         <EditViewTicketModal
-          ticket={{ ticket_id, status, title, description, link }}
+          ticket={{ ticket_id, status, title, description, link, timestamps }}
           setOpen={setOpen}
         />
       )}

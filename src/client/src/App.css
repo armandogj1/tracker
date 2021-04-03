@@ -94,3 +94,10 @@ textarea {
   justify-content: center;
   align-items: center;
 }
+
+.metrics {
+  display: flex;
+  flex-direction: column;
+  height: 90%;
+  color: #fff;
+}

@@ -39,6 +39,7 @@ const CreateTicketModal = ({
     title: '',
     description: '',
     link: '',
+    timestamps: {},
   };
   const [ticket, setTicket] = useState(initialBoard);
   const { mutateAsync } = useCreateTicket();

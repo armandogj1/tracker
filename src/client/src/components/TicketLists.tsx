@@ -8,6 +8,9 @@ export interface ITicket {
   description: string;
   link: string;
   status: string;
+  timestamps: {
+    [key: string]: number;
+  };
 }
 
 interface ITickets {
