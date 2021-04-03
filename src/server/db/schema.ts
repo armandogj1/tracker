@@ -7,6 +7,7 @@ export interface ITicket extends Document {
   description: string;
   link: string;
   status: string;
+  timestamps: Map<string, Number>;
 }
 
 const TicketSchema: Schema = new Schema({
@@ -19,6 +20,11 @@ const TicketSchema: Schema = new Schema({
   description: String,
   link: String,
   status: String,
+  timestamps: {
+    type: Map,
+    of: Date,
+    default: {},
+  },
 });
 
 const Ticket: Model<ITicket> = model('Ticket', TicketSchema);

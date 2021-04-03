@@ -24,6 +24,9 @@ const createTicket = async ({
   const { ticket_id, ...tkt } = ticket;
   const newTicket = new Ticket(tkt);
 
+  // add timestamp for current status
+  newTicket.timestamps.set(tkt.status, Date.now());
+
   board.tickets.set(newTicket.ticket_id, newTicket);
 
   try {
@@ -75,6 +78,10 @@ const updateTicket = async ({
 
   if (!ticketToUpdate) {
     throw new Error('Error ticket not found');
+  }
+
+  if (!ticketToUpdate.timestamps.get(ticket.status)) {
+    ticketToUpdate.timestamps.set(ticket.status, Date.now());
   }
 
   ticketToUpdate.title = ticket.title;
