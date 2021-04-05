@@ -105,6 +105,16 @@ textarea {
   display: flex;
   flex-direction: column;
   height: 90%;
+  width: 100vw;
   color: #fff;
   align-items: center;
+}
+
+.graph {
+  width: 75%;
+  height: 50%;
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 10px;
+  margin: 5px;
 }
