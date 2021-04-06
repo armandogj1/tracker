@@ -40,3 +40,11 @@ App's listen invocation had to be done in separate file to facilitate testing
 - On status change add a time stamp
 - Use it to display progress on an application basis
 - For the purpose of the chart only display their current status time stamp
+
+### Notification
+
+- Implement notifications
+- Make Helpers to trigger notifications every day to remind outstanding tasks
+- Possible have a dashboard to set the time of notifications
+- posibly take user to the tickets
+-
