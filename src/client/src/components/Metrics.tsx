@@ -24,7 +24,7 @@ const Metrics = () => {
       const d: number[] = [];
 
       Object.values(timestamps).forEach((time) => {
-        d.push(Date.parse(time + ''));
+        d.push(Date.parse(time));
       });
 
       return [...acc, ...d];
@@ -32,9 +32,9 @@ const Metrics = () => {
     .sort((a, b) => a - b)
     .reduce((unique, d) => {
       const dateObj = new Date(d);
-      const date = `${dateObj.getMonth() + 1}/${
-        dateObj.getDate() + 1
-      }/${dateObj.getFullYear()}`;
+      const date = `${
+        dateObj.getMonth() + 1
+      }/${dateObj.getDate()}/${dateObj.getFullYear()}`;
 
       if (unique[unique.length - 1] !== date) {
         unique.push(date);
@@ -63,12 +63,16 @@ const Metrics = () => {
 
   const dateData = statuses.map((status, idx) => {
     if (datesMap instanceof Map) {
-      const dateCountsForStatus = datesMap.get(status);
+      const dateCountsForStatus: string[] = datesMap.get(status);
       const dataObjs = [];
 
       for (let date in dateCountsForStatus) {
         dataObjs.push({ x: date, y: dateCountsForStatus[date] });
       }
+
+      dataObjs.sort((a, b) => {
+        return Date.parse(a.x) - Date.parse(b.x);
+      });
 
       return {
         label: status,
@@ -96,6 +100,7 @@ const Metrics = () => {
     ],
   };
 
+  console.log(lineData);
   return (
     <section className='metrics'>
       <div className='graph'>
