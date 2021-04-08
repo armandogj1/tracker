@@ -32,7 +32,7 @@ const Metrics = () => {
     .sort((a, b) => a - b)
     .reduce((unique, d) => {
       const dateObj = new Date(d);
-      const date = `${dateObj.getMonth()}/${
+      const date = `${dateObj.getMonth() + 1}/${
         dateObj.getDate() + 1
       }/${dateObj.getFullYear()}`;
 
@@ -46,9 +46,9 @@ const Metrics = () => {
   const datesMap = Object.values(tickets).reduce((acc, tix) => {
     Object.entries(tix.timestamps).forEach(([status, time]) => {
       const dateObj = new Date(time);
-      const date = `${dateObj.getMonth()}/${
-        dateObj.getDate() + 1
-      }/${dateObj.getFullYear()}`;
+      const date = `${
+        dateObj.getMonth() + 1
+      }/${dateObj.getDate()}/${dateObj.getFullYear()}`;
 
       if (!acc.has(status)) {
         acc.set(status, {});
