@@ -7,10 +7,10 @@ import {
 } from '../controller/Ticket';
 const router = Router();
 
-router.use(validateTicket);
-
-router.post('/', postTicketController);
 router.delete('/', deleteTicketController);
+
+router.use(validateTicket);
+router.post('/', postTicketController);
 router.put('/', putTicketController);
 
 export default router;

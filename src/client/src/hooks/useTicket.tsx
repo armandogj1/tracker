@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { ITicket } from '../API_Helpers/Board';
-import { postTicket, putTicket } from '../API_Helpers/Ticket';
+import { deleteTicket, postTicket, putTicket } from '../API_Helpers/Ticket';
 
 const useCreateTicket = () => {
   const queryClient = useQueryClient();
@@ -30,4 +30,18 @@ const useUpdateTicket = () => {
   );
 };
 
-export { useCreateTicket, useUpdateTicket };
+const useDeleteTicket = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    ({ ticket_id, board_id }: { ticket_id: string; board_id: string }) =>
+      deleteTicket({ ticket_id, board_id }),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['board']);
+      },
+    }
+  );
+};
+
+export { useCreateTicket, useUpdateTicket, useDeleteTicket };

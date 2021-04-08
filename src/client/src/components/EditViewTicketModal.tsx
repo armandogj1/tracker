@@ -2,12 +2,13 @@ import React, {
   ChangeEventHandler,
   Dispatch,
   FormEvent,
+  MouseEventHandler,
   SetStateAction,
   useState,
 } from 'react';
 import { useQueryClient } from 'react-query';
 import { ITicket } from '../API_Helpers/Board';
-import { useUpdateTicket } from '../hooks/useTicket';
+import { useDeleteTicket, useUpdateTicket } from '../hooks/useTicket';
 
 const style = {
   main: {
@@ -36,6 +37,7 @@ const EditViewTicketModal = ({
 }) => {
   const [tix, setTix] = useState(ticket);
   const { mutateAsync } = useUpdateTicket();
+  const { mutateAsync: deleteHandler } = useDeleteTicket();
   const queryClient = useQueryClient();
 
   const defaultData: { statuses: string[]; board_id: string } = {
@@ -59,6 +61,10 @@ const EditViewTicketModal = ({
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     mutateAsync({ ticket: tix, board_id }).then(() => setOpen((prev) => !prev));
+  };
+
+  const handleDelete = () => {
+    deleteHandler({ ticket_id: tix.ticket_id, board_id }).then(() => setOpen(false));
   };
 
   return (
@@ -98,6 +104,7 @@ const EditViewTicketModal = ({
       </label>
       <input type='submit' value='Submit' />
       <button onClick={() => setOpen((prev) => !prev)}>Cancel</button>
+      <button onClick={handleDelete}>Delete</button>
     </form>
   );
 };

@@ -14,8 +14,14 @@ const postTicketController = async (req: Request, res: Response) => {
 
 const deleteTicketController = async (req: Request, res: Response) => {
   try {
-    const ticket = await deleteTicket(req.body);
-    res.send('ticket deleted');
+    const { board_id = null, ticket_id = null } = req.query;
+
+    if (typeof board_id !== 'string' || typeof ticket_id !== 'string') {
+      throw new Error('Missing query params');
+    } else {
+      const ticket = await deleteTicket({ board_id, ticket_id });
+      res.send('ticket deleted');
+    }
   } catch (e) {
     res.status(400).send(e.message);
   }

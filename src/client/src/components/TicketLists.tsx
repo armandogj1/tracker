@@ -9,7 +9,7 @@ export interface ITicket {
   link: string;
   status: string;
   timestamps: {
-    [key: string]: number;
+    [key: string]: string;
   };
 }
 

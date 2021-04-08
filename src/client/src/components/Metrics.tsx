@@ -1,4 +1,4 @@
-import React, { MutableRefObject, useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { useQueryClient } from 'react-query';
 import { ITicket } from '../API_Helpers/Board';
 import { Bar, Line } from 'react-chartjs-2';
