@@ -7,3 +7,5 @@ src/server/*.js.*
 src/server/*/*.js.*
 src/server/*.js
 src/server/*/*.js
+src/server/*/*/*.js.*
+src/server/*/*/*.js
