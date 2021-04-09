@@ -11,7 +11,8 @@
     "install:client": "cd src/client && npm install",
     "install:all": "npm run install:server && npm run install:client",
     "build": "npm run build:server && npm run build:client",
-    "heroku-postbuild": "npm run install:all && npm run build",
+    "heroku-prebuild": "npm run install:all",
+    "heroku-postbuild": "npm run build",
     "start": "node ./src/server/index.js",
     "dev:server": "cd src/server && npm run dev",
     "dev:client": "cd src/client && npm start"
