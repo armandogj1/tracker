@@ -10,7 +10,7 @@
     "install:server": "cd src/server && npm install",
     "install:client": "cd src/client && npm install",
     "install": "npm run install:server && npm run install:client",
-    "build": "npm run build:server && npm run build:client",
+    "build": "ls ./src/server && npm run build:server && npm run build:client",
     "start": "cd src/server && npm start",
     "dev:server": "cd src/server && npm run dev",
     "dev:client": "cd src/client && npm start"
