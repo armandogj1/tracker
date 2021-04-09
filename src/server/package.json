@@ -9,7 +9,7 @@
     "start": "node start.js",
     "start:dev": "ts-node start.ts",
     "dev": "nodemon",
-    "tsc": "npx tsc"
+    "tsc": "npx tsc --version"
   },
   "repository": {
     "type": "git",
