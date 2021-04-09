@@ -9,9 +9,9 @@
     "build:client": "cd src/client && npm run build && mv build ../../dist",
     "install:server": "cd src/server && npm install",
     "install:client": "cd src/client && npm install",
-    "install:all": "npm run install:server && npm run install:client",
-    "build": "npm run install:all && npm run build:server && npm run build:client",
-    "start": "node ./src/server/start.js",
+    "install": "npm run install:server && npm run install:client",
+    "build": "npm run build:server && npm run build:client",
+    "start": "cd src/server && npm start",
     "dev:server": "cd src/server && npm run dev",
     "dev:client": "cd src/client && npm start"
   },
