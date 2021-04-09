@@ -36,7 +36,7 @@ const TicketList = ({
 
   const handleDrop: DragEventHandler<HTMLElement> = (e) => {
     const tixString = e.dataTransfer.getData('text/plain');
-    console.log(tixString);
+
     const newTicket = JSON.parse(tixString);
     newTicket.status = status;
 

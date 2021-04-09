@@ -2,7 +2,6 @@ import React, {
   ChangeEventHandler,
   Dispatch,
   FormEvent,
-  MouseEventHandler,
   SetStateAction,
   useState,
 } from 'react';

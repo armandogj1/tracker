@@ -3,6 +3,9 @@ import { useQueryClient } from 'react-query';
 import { ITicket } from '../API_Helpers/Board';
 import { Bar, Line } from 'react-chartjs-2';
 
+import makeDateDataList from '../helpers/makeDateDataList';
+import makeDateLabels from '../helpers/makeDateLabels';
+
 const Metrics = () => {
   const queryClient = useQueryClient();
 
@@ -19,74 +22,11 @@ const Metrics = () => {
   });
   const colors = ['#7777ff', '#77adff', '#77fdff', '#77ff9e', '#a0ff77', '#ff9777'];
 
-  const dateLabels = Object.values(tickets)
-    .reduce((acc, { timestamps }) => {
-      const d: number[] = [];
-
-      Object.values(timestamps).forEach((time) => {
-        d.push(Date.parse(time));
-      });
-
-      return [...acc, ...d];
-    }, [] as number[])
-    .sort((a, b) => a - b)
-    .reduce((unique, d) => {
-      const dateObj = new Date(d);
-      const date = `${
-        dateObj.getMonth() + 1
-      }/${dateObj.getDate()}/${dateObj.getFullYear()}`;
-
-      if (unique[unique.length - 1] !== date) {
-        unique.push(date);
-      }
-
-      return unique;
-    }, [] as string[]);
-
-  const datesMap = Object.values(tickets).reduce((acc, tix) => {
-    Object.entries(tix.timestamps).forEach(([status, time]) => {
-      const dateObj = new Date(time);
-      const date = `${
-        dateObj.getMonth() + 1
-      }/${dateObj.getDate()}/${dateObj.getFullYear()}`;
-
-      if (!acc.has(status)) {
-        acc.set(status, {});
-      }
-
-      const dateCounts = acc.get(status);
-      dateCounts[date] = dateCounts[date] ? dateCounts[date] + 1 : 1;
-    });
-
-    return acc;
-  }, new Map());
-
-  const dateData = statuses.map((status, idx) => {
-    if (datesMap instanceof Map) {
-      const dateCountsForStatus: string[] = datesMap.get(status);
-      const dataObjs = [];
-
-      for (let date in dateCountsForStatus) {
-        dataObjs.push({ x: date, y: dateCountsForStatus[date] });
-      }
-
-      dataObjs.sort((a, b) => {
-        return Date.parse(a.x) - Date.parse(b.x);
-      });
-
-      return {
-        label: status,
-        data: dataObjs,
-        fill: false,
-        borderColor: colors[idx],
-      };
-    }
-    return {};
-  });
+  const dateLabels = makeDateLabels(tickets);
 
   const lineData = {
     labels: dateLabels,
-    datasets: dateData,
+    datasets: makeDateDataList(tickets, statuses, colors),
   };
 
   const barChartData = {
