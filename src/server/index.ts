@@ -28,7 +28,8 @@ app.get('/hello', (req, res) => {
 });
 
 app.get('/', function (req, res) {
-  res.sendFile(path.join(ENV.ROOTDIR, 'dist', 'index.html'));
+  res.send(`${ENV.ROOTDIR}/dist/index.html`);
+  // res.sendFile(path.join(ENV.ROOTDIR, 'dist', 'index.html'));
 });
 
 // app.listen(ENV.PORT, () => {
