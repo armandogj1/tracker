@@ -11,7 +11,7 @@ export interface Envs {
 const envVars: Envs = {
   PORT: Number(process.env.PORT),
   MONGOURL: process.env.MONGOURL ?? '',
-  ROOTDIR: process.cwd(),
+  ROOTDIR: process.env.ROOTDIR || process.cwd(),
   DEV: Boolean(process.env.DEV),
 };
 
