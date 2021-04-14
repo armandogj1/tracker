@@ -2,7 +2,7 @@ import express from 'express';
 import path from 'path';
 import ENV from './env.config';
 console.log('In index server', ENV.MONGOURL);
-import { ticketRouter, boardRouter } from './routes/index';
+import { ticketRouter, boardRouter, authRouter } from './routes/index';
 
 const app = express();
 
@@ -16,6 +16,7 @@ app.use(express.static(path.resolve(ENV.ROOTDIR, 'dist')));
 app.use(express.json());
 
 // routers
+app.use('/auth', authRouter);
 app.use('/ticket', ticketRouter);
 app.use('/board', boardRouter);
 

@@ -6,7 +6,10 @@ import {
   postBoardController,
   putBoardController,
 } from '../controller/Board';
+import isLoggedIn from '../middleware/isLoggedIn';
 const router = Router();
+
+router.use(isLoggedIn);
 
 router.get('/:board_id', getBoardController);
 router.delete('/:board_id', deleteBoardController);

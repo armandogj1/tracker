@@ -2,6 +2,7 @@ import { Board, IBoard } from '../schema';
 
 export type BoardInputs = {
   board_id: string;
+  user?: string;
   title: string;
   description: string;
   statuses: string[];
@@ -36,7 +37,13 @@ const deleteBoard = async (id: string): Promise<IBoard> => {
   return board;
 };
 
-const updateBoard = async ({ board_id, title, description, statuses }: BoardInputs) => {
+const updateBoard = async ({
+  board_id,
+  title,
+  description,
+  statuses,
+  user,
+}: BoardInputs) => {
   const board = await getBoard(board_id);
 
   if (!board) {
@@ -44,6 +51,7 @@ const updateBoard = async ({ board_id, title, description, statuses }: BoardInpu
   }
 
   board.title = title;
+  user && (board.user = user);
   board.description = description;
   board.statuses = statuses;
   await board.save();

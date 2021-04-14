@@ -1,5 +1,7 @@
 import React, { Dispatch, FormEvent, SetStateAction, useState } from 'react';
+import { useQueryClient } from 'react-query';
 import { IBoard } from '../API_Helpers/Board';
+import { ITokenData } from '../helpers/getToken';
 import { useCreateBoard } from '../hooks/useBoard';
 
 interface IEventTarget {
@@ -30,13 +32,19 @@ const CreateBoardModal = ({
 }) => {
   const initialBoard: IBoard = {
     board_id: '',
+    user: '',
     title: '',
     description: '',
     tickets: {},
     statuses: [],
   };
+  const queryClient = useQueryClient();
   const [board, setBoard] = useState(initialBoard);
-  const { mutateAsync } = useCreateBoard();
+  const authData: ITokenData = queryClient.getQueryData('auth') || {
+    user: '',
+    token: '',
+  };
+  const { mutateAsync } = useCreateBoard(authData.token);
 
   const handleChange = (e: IEventTarget) => {
     if (!e) return;

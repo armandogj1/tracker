@@ -31,6 +31,7 @@ const Ticket: Model<ITicket> = model('Ticket', TicketSchema);
 
 export interface IBoard extends Document {
   board_id: string;
+  user: string;
   title: string;
   description: string;
   tickets: Map<string, ITicket>;
@@ -43,6 +44,7 @@ const BoardSchema: Schema = new Schema({
     default: () => nanoid(),
     unique: true,
   },
+  user: String,
   title: { type: String, require: true },
   description: String,
   tickets: {

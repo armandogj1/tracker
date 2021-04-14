@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
+import { useQueryClient } from 'react-query';
+import { ITokenData } from '../helpers/getToken';
 import { testNotification } from '../helpers/notifications';
 import { useBoard } from '../hooks/useBoard';
 import Metrics from './Metrics';
 import TicketLists from './TicketLists';
 
 const Board = ({ boardId }: { boardId: string }) => {
-  const { data, isError } = useBoard(boardId);
+  const queryClient = useQueryClient();
+  const authData: ITokenData = queryClient.getQueryData('auth') || {
+    user: '',
+    token: '',
+  };
+  const { data, isError } = useBoard(boardId, authData.token);
   const [openMetrics, setOpenMetrics] = useState(false);
 
   if (isError || !data) return <p>Some went wrong</p>;

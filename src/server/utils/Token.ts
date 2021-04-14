@@ -1,15 +1,9 @@
 import { sign, verify } from 'jsonwebtoken';
 import ENV from '../env.config';
 
-const createToken = ({
-  email,
-  password,
-}: {
-  email: string;
-  password: string;
-}): Promise<string> => {
+const createToken = ({ email }: { email: string }): Promise<string> => {
   return new Promise((resolve, reject) => {
-    sign({ email, password }, ENV.JWTSECRET, { expiresIn: '2 days' }, (err, JWT) => {
+    sign({ email }, ENV.JWTSECRET, { expiresIn: '2 days' }, (err, JWT) => {
       if (err || !JWT) {
         reject(err);
       } else {

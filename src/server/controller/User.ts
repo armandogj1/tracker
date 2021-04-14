@@ -16,13 +16,13 @@ const postUser = async (req: Request, res: Response) => {
   }
 };
 
-const getLogin = async (req: Request, res: Response) => {
-  const user = await validateUser(req.body).catch(() => {
+const logIn = async (req: Request, res: Response) => {
+  const isValid = await validateUser(req.body).catch(() => {
     res.status(401).send('User not valid');
   });
 
-  if (user) {
-    const token = createToken(req.body).catch((e) =>
+  if (isValid) {
+    const token = await createToken(req.body).catch((e) =>
       res.status(500).send('Error generating token')
     );
 
@@ -30,4 +30,4 @@ const getLogin = async (req: Request, res: Response) => {
   }
 };
 
-export { postUser, getLogin };
+export { postUser, logIn };

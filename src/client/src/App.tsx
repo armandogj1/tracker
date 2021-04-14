@@ -3,15 +3,18 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import './App.css';
 import Board from './components/Board';
+import LogIn from './components/LogIn';
 import SelectOrCreate from './components/SelectOrCreate';
-
-const queryClient = new QueryClient();
+import { useIsAuth } from './hooks/useAuth';
 
 function App() {
   const [boardId, setBoardId] = useState('');
+  const { isError } = useIsAuth();
+
+  if (isError) return <LogIn />;
 
   return (
-    <QueryClientProvider client={queryClient}>
+    <>
       <div className='App'>
         {boardId ? (
           <Board boardId={boardId} />
@@ -22,7 +25,7 @@ function App() {
       {process.env.NODE_ENV !== 'production' && (
         <ReactQueryDevtools initialIsOpen={false} />
       )}
-    </QueryClientProvider>
+    </>
   );
 }
 

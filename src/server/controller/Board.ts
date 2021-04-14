@@ -20,6 +20,10 @@ const getBoardController = async (req: Request, res: Response) => {
       throw new Error('Error board not found');
     }
 
+    if (board.user && board.user !== req.body.token.email) {
+      throw new Error('User does not match');
+    }
+
     res.status(200).send(cleanDocument(board));
   } catch (e) {
     res.status(400).send(e.message);
