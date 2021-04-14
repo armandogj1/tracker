@@ -33,9 +33,9 @@ const getBoardController = async (req: Request, res: Response) => {
 const getBoardIdsController = async (req: Request, res: Response) => {
   try {
     // console.log('board ids');
-    const boardIds = await getBoardIds();
+    const boardIds = await getBoardIds(req.body.token);
 
-    // console.log(boardIds);
+    console.log(boardIds);
     res.status(200).send(boardIds);
   } catch (e) {
     res.status(400).send(e.message);
@@ -54,7 +54,7 @@ const postBoardController = async (req: Request, res: Response) => {
 
 const putBoardController = async (req: Request, res: Response) => {
   try {
-    const board = await updateBoard(req.body);
+    const board = await updateBoard(req.body, req.body.token);
 
     res.status(200).send(cleanDocument(board));
   } catch (e) {

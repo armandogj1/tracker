@@ -4,8 +4,8 @@ import { getBoard, IBoard, postBoard, getBoardIds } from '../API_Helpers/Board';
 const useBoard = (board_id: string, token: string) =>
   useQuery(['board'], () => getBoard(board_id, token));
 
-const useBoardIds = () => {
-  return useQuery(['boards'], () => getBoardIds());
+const useBoardIds = (token: string) => {
+  return useQuery(['boards'], () => getBoardIds(token));
 };
 
 const useCreateBoard = (token: string) => {

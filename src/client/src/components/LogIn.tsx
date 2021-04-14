@@ -21,7 +21,7 @@ const style = {
   },
 };
 
-const LogIn = () => {
+const LogIn = ({ setOpen }: { setOpen: Dispatch<SetStateAction<boolean>> }) => {
   const defaultInputs = { email: '', password: '' };
   const [inputs, setInputs] = useState(defaultInputs);
   const { mutateAsync } = useLogin();
@@ -34,7 +34,9 @@ const LogIn = () => {
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    mutateAsync(inputs).catch((e) => console.log(e));
+    mutateAsync(inputs)
+      .then(() => setOpen(false))
+      .catch((e) => console.log(e));
   };
 
   return (

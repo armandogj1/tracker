@@ -7,6 +7,7 @@ import React, {
 } from 'react';
 import { useQueryClient } from 'react-query';
 import { ITicket } from '../API_Helpers/Board';
+import { ITokenData } from '../helpers/getToken';
 import { useDeleteTicket, useUpdateTicket } from '../hooks/useTicket';
 
 const style = {
@@ -34,10 +35,14 @@ const EditViewTicketModal = ({
   ticket: ITicket;
   setOpen: Dispatch<SetStateAction<boolean>>;
 }) => {
-  const [tix, setTix] = useState(ticket);
-  const { mutateAsync } = useUpdateTicket();
-  const { mutateAsync: deleteHandler } = useDeleteTicket();
   const queryClient = useQueryClient();
+  const authData: ITokenData = queryClient.getQueryData('auth') || {
+    user: '',
+    token: '',
+  };
+  const [tix, setTix] = useState(ticket);
+  const { mutateAsync } = useUpdateTicket(authData.token);
+  const { mutateAsync: deleteHandler } = useDeleteTicket(authData.token);
 
   const defaultData: { statuses: string[]; board_id: string } = {
     statuses: [],

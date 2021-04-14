@@ -1,5 +1,7 @@
 import React, { Dispatch, FormEvent, SetStateAction, useState } from 'react';
+import { useQueryClient } from 'react-query';
 import { ITicket } from '../API_Helpers/Board';
+import { ITokenData } from '../helpers/getToken';
 import { useCreateTicket } from '../hooks/useTicket';
 
 interface IEventTarget {
@@ -41,8 +43,13 @@ const CreateTicketModal = ({
     link: '',
     timestamps: {},
   };
+  const queryClient = useQueryClient();
+  const authData: ITokenData = queryClient.getQueryData('auth') || {
+    user: '',
+    token: '',
+  };
+  const { mutateAsync } = useCreateTicket(authData.token);
   const [ticket, setTicket] = useState(initialBoard);
-  const { mutateAsync } = useCreateTicket();
 
   const handleChange = (e: IEventTarget) => {
     if (!e) return;

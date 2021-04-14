@@ -1,4 +1,6 @@
 import React, { DragEventHandler, useState } from 'react';
+import { useQueryClient } from 'react-query';
+import { ITokenData } from '../helpers/getToken';
 import { useUpdateTicket } from '../hooks/useTicket';
 import CreateTicketModal from './CreateTicketModal';
 import Ticket from './Ticket';
@@ -27,8 +29,13 @@ const TicketList = ({
   status: string;
   board_id: string;
 }) => {
+  const queryClient = useQueryClient();
+  const authData: ITokenData = queryClient.getQueryData('auth') || {
+    user: '',
+    token: '',
+  };
   const [isCreateOpen, setCreateOpen] = useState(false);
-  const { mutate } = useUpdateTicket();
+  const { mutate } = useUpdateTicket(authData.token);
 
   const handleDragOver: DragEventHandler<HTMLElement> = (e) => {
     e.preventDefault();

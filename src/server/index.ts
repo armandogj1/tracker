@@ -9,6 +9,7 @@ const app = express();
 // include cors in development
 import cors from 'cors';
 import { getBoardIdsController } from './controller/Board';
+import isLoggedIn from './middleware/isLoggedIn';
 ENV.DEV && app.use(cors());
 
 // middlewares
@@ -17,6 +18,7 @@ app.use(express.json());
 
 // routers
 app.use('/auth', authRouter);
+app.use(isLoggedIn);
 app.use('/ticket', ticketRouter);
 app.use('/board', boardRouter);
 

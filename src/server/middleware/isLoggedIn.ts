@@ -6,8 +6,11 @@ import { IJWT, isTokenValid } from '../utils/Token';
 const isLoggedIn = async (req: Request, res: Response, next: NextFunction) => {
   const header = req.get('authorization');
 
-  if (!header) {
+  if (header === undefined) {
     res.status(400).send('Log In');
+  } else if (header === '') {
+    req.body.token = '__PUBLIC__';
+    next();
   } else {
     const validToken = await isTokenValid(header).catch(() => {
       res.status(400).send('Invalid Token');

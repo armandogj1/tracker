@@ -11,7 +11,7 @@ function App() {
   const [boardId, setBoardId] = useState('');
   const { isError } = useIsAuth();
 
-  if (isError) return <LogIn />;
+  // if (isError) return <LogIn />;
 
   return (
     <>

@@ -1,4 +1,6 @@
 import React, { ChangeEvent, Dispatch, FormEvent, SetStateAction, useState } from 'react';
+import { useQueryClient } from 'react-query';
+import { ITokenData } from '../helpers/getToken';
 import { useBoardIds } from '../hooks/useBoard';
 
 const style = {
@@ -32,7 +34,12 @@ const SelectBoard = ({
 }: {
   setBoardId: Dispatch<SetStateAction<string>>;
 }) => {
-  const { data, isError } = useBoardIds();
+  const queryClient = useQueryClient();
+  const authData: ITokenData = queryClient.getQueryData('auth') || {
+    user: '',
+    token: '',
+  };
+  const { data, isError } = useBoardIds(authData.token);
   const [selected, setSelected] = useState('');
   if (isError) return <p>Something went wrong getting Boards</p>;
   if (!data) return <p>No Boards</p>;

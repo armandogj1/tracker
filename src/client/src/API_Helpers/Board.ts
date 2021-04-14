@@ -28,14 +28,14 @@ const getBoard = (board_id: string, token: string): Promise<IBoard> => {
   return axios.get(URL, { headers: { authorization: token } }).then(({ data }) => data);
 };
 
-const getBoardIds = (): Promise<string[][]> => {
+const getBoardIds = (token: string): Promise<string[][]> => {
   let URL = `/boards`;
 
   if (process.env.NODE_ENV !== 'production') {
     URL = `http://localhost:4000${URL}`;
   }
 
-  return axios.get(URL).then(({ data }) => {
+  return axios.get(URL, { headers: { authorization: token } }).then(({ data }) => {
     return data;
   });
 };

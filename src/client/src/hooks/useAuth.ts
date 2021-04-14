@@ -35,7 +35,7 @@ const useLogin = () => {
 const useIsAuth = () => {
   // const [token, setToken] = useState(localStorage.getItem('tktit_token') || '');
 
-  return useQuery(['auth'], getToken);
+  return useQuery(['auth'], getToken, { retryOnMount: false, retry: false });
 };
 
 export { useNewUser, useLogin, useIsAuth };

@@ -44,7 +44,7 @@ const BoardSchema: Schema = new Schema({
     default: () => nanoid(),
     unique: true,
   },
-  user: String,
+  user: { type: String, default: '' },
   title: { type: String, require: true },
   description: String,
   tickets: {
