@@ -55,4 +55,16 @@ const BoardSchema: Schema = new Schema({
 
 const Board: Model<IBoard> = model('Board', BoardSchema);
 
-export { Ticket, Board };
+export interface IUser extends Document {
+  email: string;
+  password: string;
+}
+
+const UserSchema: Schema = new Schema({
+  email: { type: String, require: true, unique: true },
+  password: String,
+});
+
+const User: Model<IUser> = model('User', UserSchema);
+
+export { Ticket, Board, User };

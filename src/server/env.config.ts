@@ -6,6 +6,8 @@ export interface Envs {
   MONGOURL: string;
   ROOTDIR: string;
   DEV: boolean;
+  JWTSECRET: string;
+  SALT: number;
 }
 
 const envVars: Envs = {
@@ -13,6 +15,8 @@ const envVars: Envs = {
   MONGOURL: process.env.MONGOURL ?? '',
   ROOTDIR: process.env.ROOTDIR || process.cwd(),
   DEV: Boolean(process.env.DEV),
+  JWTSECRET: process.env.JWTSECRET || '',
+  SALT: Number(process.env.SALT) || 8,
 };
 
 export default envVars;
