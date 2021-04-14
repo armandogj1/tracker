@@ -30,7 +30,7 @@ section {
   width: 100vw;
 }
 
-.board header button {
+#nav {
   position: absolute;
   top: 1.75em;
   right: 1em;

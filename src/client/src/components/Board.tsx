@@ -25,11 +25,11 @@ const Board = ({ boardId }: { boardId: string }) => {
     <section className='board'>
       <header>
         <h1>{title}</h1>
-        <button onClick={() => setOpenMetrics((prev) => !prev)}>Metrics</button>
-        <button id='notifications' onClick={testNotification}>
-          Notification
-        </button>
-        <button onClick={() => setLogin((prev) => !prev)}>login</button>
+        <div id='nav'>
+          <button onClick={() => setOpenMetrics((prev) => !prev)}>Metrics</button>
+          <button onClick={testNotification}>Notification</button>
+          <button onClick={() => setLogin((prev) => !prev)}>login</button>
+        </div>
       </header>
       {login ? (
         <LogIn setOpen={setLogin} />
