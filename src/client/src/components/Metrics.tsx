@@ -40,7 +40,6 @@ const Metrics = () => {
     ],
   };
 
-  console.log(lineData);
   return (
     <section className='metrics'>
       <div className='graph'>

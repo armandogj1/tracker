@@ -1,27 +1,30 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import { useQueryClient } from 'react-query';
+import { ITokenData } from '../helpers/getToken';
 import { useLogOut } from '../hooks/useAuth';
+import { useHistory, Link } from 'react-router-dom';
 
-const LogButton = ({
-  token,
-  setOpen,
-}: {
-  token: string;
-  setOpen: Dispatch<SetStateAction<boolean>>;
-}) => {
+const LogButton = () => {
+  const queryClient = useQueryClient();
+  const history = useHistory();
+  const { token }: ITokenData = queryClient.getQueryData('auth') || {
+    user: '',
+    token: '',
+  };
+
   const { mutateAsync } = useLogOut();
 
   const handleLogOut = () => {
     mutateAsync()
-      .then(() => setOpen(false))
+      .then(() => history.push('/'))
       .catch((e) => console.log(e));
   };
 
   return (
     <>
       {token ? (
-        <button onClick={handleLogOut}>logout</button>
+        <button onClick={handleLogOut}>Logout</button>
       ) : (
-        <button onClick={() => setOpen((prev) => !prev)}>login</button>
+        <Link to='/login'>Login</Link>
       )}
     </>
   );

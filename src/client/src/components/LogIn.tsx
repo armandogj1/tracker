@@ -6,6 +6,7 @@ import React, {
   useState,
 } from 'react';
 import { useLogin } from '../hooks/useAuth';
+import { RouteComponentProps } from 'react-router-dom';
 
 const style = {
   main: {
@@ -21,7 +22,7 @@ const style = {
   },
 };
 
-const LogIn = ({ setOpen }: { setOpen: Dispatch<SetStateAction<boolean>> }) => {
+const LogIn = ({ history }: RouteComponentProps) => {
   const defaultInputs = { email: '', password: '' };
   const [inputs, setInputs] = useState(defaultInputs);
   const { mutateAsync } = useLogin();
@@ -35,7 +36,7 @@ const LogIn = ({ setOpen }: { setOpen: Dispatch<SetStateAction<boolean>> }) => {
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     mutateAsync(inputs)
-      .then(() => setOpen(false))
+      .then(() => history.push('/'))
       .catch((e) => console.log(e));
   };
 

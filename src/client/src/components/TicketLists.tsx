@@ -22,7 +22,6 @@ interface ITickets {
 
 const style = {
   display: 'grid',
-  backgroundColor: '#ffffff80',
   maxWidth: '100vw',
   'grid-auto-flow': 'column',
 };

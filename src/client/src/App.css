@@ -1,9 +1,15 @@
 .App {
-  text-align: center;
+  display: grid;
+  grid-template-rows: 75px minmax(0, 1fr);
   height: 100vh;
   background-color: #333;
   padding: 0;
   margin: 0;
+}
+
+header {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .modal {
@@ -20,21 +26,21 @@ section {
 }
 
 .board {
-  height: 100vh;
   display: flex;
+  box-sizing: border-box;
+  height: 100%;
+  max-width: 100vw;
   flex-wrap: wrap;
   align-content: flex-start;
+  padding: 10px 0px;
+  background-color: hsl(0, 0%, 60%);
 }
 
-.board header {
-  width: 100vw;
-}
-
-#nav {
+/* #nav {
   position: absolute;
   top: 1.75em;
   right: 1em;
-}
+} */
 
 .board h1 {
   height: 2.5em;
@@ -63,11 +69,15 @@ section {
 }
 
 .tix-lists {
+  display: grid;
+  text-align: center;
   overflow-x: scroll;
   column-gap: 10px;
   margin: 0;
-  height: 90%;
-  padding: 5px;
+  max-height: 100%;
+  max-width: 100%;
+  grid-auto-flow: column;
+  padding: 0px 10px;
 }
 
 /* .selectOrCreate {
@@ -84,6 +94,7 @@ ul {
 li {
   position: relative;
   max-width: 250px;
+  min-width: 250px;
   margin-bottom: 5px;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -94,12 +105,24 @@ textarea {
   resize: none;
 }
 
-.select-create {
+/* .select-create {
   display: flex;
   height: 100%;
   justify-content: center;
   align-items: center;
 }
+.select-create a {
+  height: 200px;
+  width: 200px;
+  font-size: 1.5em;
+  font-weight: 600;
+  color: #333;
+  background-color: hsl(0, 0%, 70%);
+  border-radius: 10px;
+  line-height: 200px;
+  margin: 1em;
+  text-decoration: none;
+} */
 
 .metrics {
   display: flex;

@@ -1,0 +1,45 @@
+nav {
+  display: flex;
+  align-items: center;
+  font-size: 1.25rem;
+  font-weight: 700;
+  width: 50vw;
+  /* justify-content: space-evenly; */
+}
+
+nav a,
+nav button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* height: 75px; */
+  text-decoration: none;
+  color: hsl(0, 0%, 85%);
+  margin: 0 1em;
+}
+
+nav button {
+  padding: 0;
+  line-height: 75px;
+  height: 50px;
+  font: inherit;
+  border: none;
+  border-radius: 10px;
+  background-color: hsl(0, 0%, 5%);
+  margin-right: 10px;
+  margin-left: auto;
+  padding: 0px 10px;
+}
+
+nav a:focus,
+nav button:focus {
+  color: hsl(33, 100%, 70%);
+  font-size: 1.5rem;
+  outline: none;
+}
+
+nav a:hover,
+nav button:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}

@@ -1,5 +1,6 @@
-import React, { Dispatch, FormEvent, SetStateAction, useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { useQueryClient } from 'react-query';
+import { RouteComponentProps } from 'react-router-dom';
 import { IBoard } from '../API_Helpers/Board';
 import { ITokenData } from '../helpers/getToken';
 import { useCreateBoard } from '../hooks/useBoard';
@@ -25,19 +26,16 @@ const style = {
   },
 };
 
-const CreateBoardModal = ({
-  setBoardId,
-}: {
-  setBoardId: Dispatch<SetStateAction<string>>;
-}) => {
-  const initialBoard: IBoard = {
-    board_id: '',
-    user: '',
-    title: '',
-    description: '',
-    tickets: {},
-    statuses: [],
-  };
+const initialBoard: IBoard = {
+  board_id: '',
+  user: '',
+  title: '',
+  description: '',
+  tickets: {},
+  statuses: [],
+};
+
+const CreateBoardModal = ({ history }: RouteComponentProps) => {
   const queryClient = useQueryClient();
   const [board, setBoard] = useState(initialBoard);
   const authData: ITokenData = queryClient.getQueryData('auth') || {
@@ -65,7 +63,9 @@ const CreateBoardModal = ({
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    mutateAsync(board).then(({ board_id }) => setBoardId(board_id));
+    mutateAsync(board)
+      .then(({ board_id }) => history.push(`/board/${board_id}`))
+      .catch(() => history.push('login'));
   };
 
   return (

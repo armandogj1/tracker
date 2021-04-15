@@ -2,6 +2,7 @@ import React, { ChangeEvent, Dispatch, FormEvent, SetStateAction, useState } fro
 import { useQueryClient } from 'react-query';
 import { ITokenData } from '../helpers/getToken';
 import { useBoardIds } from '../hooks/useBoard';
+import { RouteComponentProps } from 'react-router-dom';
 
 const style = {
   form: {
@@ -29,11 +30,7 @@ const style = {
   },
 };
 
-const SelectBoard = ({
-  setBoardId,
-}: {
-  setBoardId: Dispatch<SetStateAction<string>>;
-}) => {
+const SelectBoard = ({ history }: RouteComponentProps) => {
   const queryClient = useQueryClient();
   const authData: ITokenData = queryClient.getQueryData('auth') || {
     user: '',
@@ -48,7 +45,7 @@ const SelectBoard = ({
     e.preventDefault();
     if (!selected) return;
 
-    setBoardId(selected);
+    history.push(`board/${selected}`);
   };
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {

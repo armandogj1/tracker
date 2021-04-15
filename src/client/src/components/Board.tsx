@@ -1,44 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useQueryClient } from 'react-query';
 import { ITokenData } from '../helpers/getToken';
-import { testNotification } from '../helpers/notifications';
 import { useBoard } from '../hooks/useBoard';
-import LogButton from './LogButton';
-import LogIn from './LogIn';
-import Metrics from './Metrics';
+import { RouteComponentProps } from 'react-router-dom';
 import TicketLists from './TicketLists';
 
-const Board = ({ boardId }: { boardId: string }) => {
+const Board = ({ match }: RouteComponentProps) => {
   const queryClient = useQueryClient();
   const authData: ITokenData = queryClient.getQueryData('auth') || {
     user: '',
     token: '',
   };
+  const { boardId = '' } = match.params as { boardId?: string };
   const { data, isError } = useBoard(boardId, authData.token);
-  const [openMetrics, setOpenMetrics] = useState(false);
-  const [login, setLogin] = useState(false);
 
   if (isError || !data) return <p>Some went wrong</p>;
 
-  const { board_id, title } = data;
+  const { board_id } = data;
 
   return (
     <section className='board'>
-      <header>
-        <h1>{title}</h1>
-        <div id='nav'>
-          <button onClick={() => setOpenMetrics((prev) => !prev)}>Metrics</button>
-          <button onClick={testNotification}>Notification</button>
-          <LogButton setOpen={setLogin} token={authData.token} />
-        </div>
-      </header>
-      {login ? (
-        <LogIn setOpen={setLogin} />
-      ) : openMetrics ? (
-        <Metrics />
-      ) : (
-        <TicketLists board_id={board_id} />
-      )}
+      <TicketLists board_id={board_id} />
     </section>
   );
 };
