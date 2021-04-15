@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { postNewUser, postLogin } from '../API_Helpers/auth';
 import getToken from '../helpers/getToken';
+import removeToken from '../helpers/removeToken';
 
 const useNewUser = () => {
   const queryClient = useQueryClient();
@@ -38,4 +39,14 @@ const useIsAuth = () => {
   return useQuery(['auth'], getToken, { retryOnMount: false, retry: false });
 };
 
-export { useNewUser, useLogin, useIsAuth };
+const useLogOut = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation(removeToken, {
+    onSuccess: () => {
+      queryClient.clear();
+    },
+  });
+};
+
+export { useNewUser, useLogin, useIsAuth, useLogOut };

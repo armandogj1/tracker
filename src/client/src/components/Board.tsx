@@ -3,6 +3,7 @@ import { useQueryClient } from 'react-query';
 import { ITokenData } from '../helpers/getToken';
 import { testNotification } from '../helpers/notifications';
 import { useBoard } from '../hooks/useBoard';
+import LogButton from './LogButton';
 import LogIn from './LogIn';
 import Metrics from './Metrics';
 import TicketLists from './TicketLists';
@@ -28,7 +29,7 @@ const Board = ({ boardId }: { boardId: string }) => {
         <div id='nav'>
           <button onClick={() => setOpenMetrics((prev) => !prev)}>Metrics</button>
           <button onClick={testNotification}>Notification</button>
-          <button onClick={() => setLogin((prev) => !prev)}>login</button>
+          <LogButton setOpen={setLogin} token={authData.token} />
         </div>
       </header>
       {login ? (

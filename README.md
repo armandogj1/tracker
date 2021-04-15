@@ -47,4 +47,10 @@ App's listen invocation had to be done in separate file to facilitate testing
 - Make Helpers to trigger notifications every day to remind outstanding tasks
 - Possible have a dashboard to set the time of notifications
 - posibly take user to the tickets
--
+
+### Routing
+
+- Use react router
+- have the select create page as home
+- have swith board as part of nav
+- use redirect to manage login and logout
