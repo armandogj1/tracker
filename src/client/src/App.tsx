@@ -13,15 +13,8 @@ import SelectBoard from './components/SelectBoard';
 import Metrics from './components/Metrics';
 
 function App() {
-  const [boardId, setBoardId] = useState('');
   const { isError } = useIsAuth();
   const history = useHistory();
-
-  useEffect(() => {
-    if (boardId) {
-      history.push('/board');
-    }
-  }, [boardId, history]);
 
   // if (isError) return <LogIn />;
 

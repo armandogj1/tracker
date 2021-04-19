@@ -75,14 +75,11 @@ section {
   column-gap: 10px;
   margin: 0;
   max-height: 100%;
+  min-height: 100%;
   max-width: 100%;
   grid-auto-flow: column;
   padding: 0px 10px;
 }
-
-/* .selectOrCreate {
-  position: relative;
-} */
 
 ul {
   list-style: none;

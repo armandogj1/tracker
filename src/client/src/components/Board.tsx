@@ -2,7 +2,7 @@ import React from 'react';
 import { useQueryClient } from 'react-query';
 import { ITokenData } from '../helpers/getToken';
 import { useBoard } from '../hooks/useBoard';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, Redirect } from 'react-router-dom';
 import TicketLists from './TicketLists';
 
 const Board = ({ match }: RouteComponentProps) => {
@@ -14,7 +14,7 @@ const Board = ({ match }: RouteComponentProps) => {
   const { boardId = '' } = match.params as { boardId?: string };
   const { data, isError } = useBoard(boardId, authData.token);
 
-  if (isError || !data) return <p>Some went wrong</p>;
+  if (isError || !data) return <Redirect to='/' />;
 
   const { board_id } = data;
 
