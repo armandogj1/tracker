@@ -71,7 +71,7 @@ test('should update board', async (done) => {
     statuses: ['offer', 'accepted'],
   };
 
-  await updateBoard(updateVals);
+  await updateBoard(updateVals, '');
   const updated = await getBoard(board_id);
   if (!updated) {
     throw new Error('Error updating board');
@@ -94,7 +94,7 @@ test('should NOT update board', async (done) => {
   };
 
   try {
-    await updateBoard(board);
+    await updateBoard(board, '');
   } catch (e) {
     expect(e.message).toBe('Error board not found');
   }
