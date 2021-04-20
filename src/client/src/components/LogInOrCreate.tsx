@@ -8,20 +8,6 @@ import { useIsAuth, useLogin, useNewUser } from '../hooks/useAuth';
 import { RouteComponentProps } from 'react-router-dom';
 import '../styles/Modal.css';
 
-const style = {
-  main: {
-    display: 'flex',
-    'flex-direction': 'column',
-    'border-radius': '10px',
-    backgroundColor: '#fff',
-    padding: '1em',
-    color: 'black',
-    'z-index': '3',
-    width: '600px',
-    height: '500px',
-  },
-};
-
 const LogInOrCreate = ({ history }: RouteComponentProps) => {
   const defaultInputs = { email: '', password: '' };
   const [inputs, setInputs] = useState(defaultInputs);
@@ -73,9 +59,9 @@ const LogInOrCreate = ({ history }: RouteComponentProps) => {
           <input type='text' name='password' value={inputs.password} />
         </label>
 
-        <input type='submit' value='Submit' />
+        <input className='submit' type='submit' value='Submit' />
       </form>
-      <button onClick={handleAction}>
+      <button className='signup-login' onClick={handleAction}>
         {action === 'login' ? 'Create Account' : 'Login'}
       </button>
     </div>

@@ -40,7 +40,14 @@ const TicketLists = ({ board_id }: { board_id: string }) => {
       {statuses.map((status) => {
         const filteredTix = Object.values(tickets).filter((tix) => tix.status === status);
 
-        return <TicketList tickets={filteredTix} status={status} board_id={board_id} />;
+        return (
+          <TicketList
+            key={`${board_id}-${status}`}
+            tickets={filteredTix}
+            status={status}
+            board_id={board_id}
+          />
+        );
       })}
     </section>
   );

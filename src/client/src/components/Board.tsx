@@ -19,7 +19,7 @@ const Board = ({ match }: RouteComponentProps) => {
   const { board_id } = data;
 
   return (
-    <section className='board'>
+    <section className='board' key={board_id}>
       <TicketLists board_id={board_id} />
     </section>
   );

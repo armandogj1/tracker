@@ -1,18 +1,22 @@
 .modal {
+  position: fixed;
   display: flex;
   flex-direction: column;
-  position: fixed;
+  justify-content: space-evenly;
+  align-items: center;
+
   background-color: var(--bg-color-mid);
   color: black;
+
   border-radius: 10px;
   padding: 1em;
-  top: 50%;
-  left: 50%;
-  z-index: 3;
-  align-items: center;
   height: 500px;
   width: 600px;
+
+  top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
+  z-index: 3;
 }
 
 .login {
@@ -31,10 +35,9 @@ h3 {
   font-size: var(--heading-3);
 }
 
-button {
+.modal .signup-login {
   border: none;
   background-color: transparent;
-  cursor: pointer;
   color: var(--link-color);
   text-decoration: underline;
 }
@@ -52,4 +55,20 @@ button {
 
 .submit .ticket-modal {
   text-decoration: none;
+}
+
+.delete {
+  background-color: tomato;
+  color: var(--color-dark);
+}
+
+label {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+label input[type='text'] {
+  margin-right: 0;
+  margin-left: auto;
 }

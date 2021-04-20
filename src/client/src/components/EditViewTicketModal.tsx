@@ -2,6 +2,8 @@ import React, {
   ChangeEventHandler,
   Dispatch,
   FormEvent,
+  MouseEvent,
+  MouseEventHandler,
   SetStateAction,
   useState,
 } from 'react';
@@ -31,9 +33,11 @@ const style = {
 
 const EditViewTicketModal = ({
   ticket,
+  board_id,
   setOpen,
 }: {
   ticket: ITicket;
+  board_id: string;
   setOpen: Dispatch<SetStateAction<boolean>>;
 }) => {
   const queryClient = useQueryClient();
@@ -42,15 +46,15 @@ const EditViewTicketModal = ({
     token: '',
   };
   const [tix, setTix] = useState(ticket);
+  const [deleteButtonCount, setDeleteCount] = useState(0);
   const { mutateAsync } = useUpdateTicket(authData.token);
   const { mutateAsync: deleteHandler } = useDeleteTicket(authData.token);
 
-  const defaultData: { statuses: string[]; board_id: string } = {
+  const defaultData: { statuses: string[] } = {
     statuses: [],
-    board_id: '',
   };
-  const { statuses, board_id }: { statuses: string[]; board_id: string } =
-    queryClient.getQueryData('board') || defaultData;
+  const { statuses }: { statuses: string[] } =
+    queryClient.getQueryData(['board', board_id]) || defaultData;
 
   const handleChange: ChangeEventHandler<HTMLFormElement> = (e) => {
     if (!e) return;
@@ -68,53 +72,81 @@ const EditViewTicketModal = ({
     mutateAsync({ ticket: tix, board_id }).then(() => setOpen((prev) => !prev));
   };
 
-  const handleDelete = () => {
-    deleteHandler({ ticket_id: tix.ticket_id, board_id }).then(() => setOpen(false));
+  interface ITarget extends EventTarget {
+    name?: string;
+  }
+  interface IEvent extends MouseEvent {
+    target: ITarget;
+  }
+
+  const handleCountReset = (e: IEvent) => {
+    if (!e.target || e.target.name !== 'delete') {
+      return setDeleteCount(0);
+    }
+  };
+
+  const handleDelete: MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault();
+    if (deleteButtonCount === 1) {
+      return deleteHandler({ ticket_id: tix.ticket_id, board_id }).then(() =>
+        setOpen(false)
+      );
+    }
+
+    setDeleteCount((prev) => prev + 1);
   };
 
   return (
-    <form
-      className='modal ticket-modal'
-      style={style.main}
-      onChange={handleChange}
-      onSubmit={handleSubmit}
-    >
-      <label>
-        Title:
-        <input type='text' name='title' value={tix.title} />
-      </label>
-      <label>
-        Link:
-        <input type='text' name='link' value={tix.link} />
-        <a href={tix.link} target='_blank' rel='noopener noreferrer'>
-          link
-        </a>
-      </label>
-      <label>
-        Description:
-        <textarea style={style.textarea} name='description' value={tix.description} />
-      </label>
-      <label>
-        Pick Status:
-        <select value={tix.status} name='status'>
-          <option value='' disabled selected hidden>
-            Status
-          </option>
-          {statuses.map((status) => (
-            <option key={status} value={status}>
-              {status}
+    <div onClick={handleCountReset}>
+      <form
+        className='modal ticket-modal'
+        style={style.main}
+        onChange={handleChange}
+        onSubmit={handleSubmit}
+      >
+        <button
+          className={deleteButtonCount ? 'submit delete' : 'submit'}
+          name='delete'
+          onClick={handleDelete}
+        >
+          Delete
+        </button>
+        <label>
+          Title:
+          <input type='text' name='title' value={tix.title} />
+        </label>
+        <label>
+          Link:
+          <input type='text' name='link' value={tix.link} />
+          <a href={tix.link} target='_blank' rel='noopener noreferrer'>
+            link
+          </a>
+        </label>
+        <label>
+          Description:
+          <textarea style={style.textarea} name='description' value={tix.description} />
+        </label>
+        <label>
+          Pick Status:
+          <select value={tix.status} name='status'>
+            <option value='' disabled selected hidden>
+              Status
             </option>
-          ))}
-        </select>
-      </label>
-      <input className='submit' type='submit' value='Submit' />
-      <button className='submit' onClick={() => setOpen((prev) => !prev)}>
-        Cancel
-      </button>
-      <button className='submit' onClick={handleDelete}>
-        Delete
-      </button>
-    </form>
+            {statuses.map((status) => (
+              <option key={status} value={status}>
+                {status}
+              </option>
+            ))}
+          </select>
+        </label>
+        <div>
+          <input className='submit' type='submit' value='Submit' />
+          <button className='submit' onClick={() => setOpen((prev) => !prev)}>
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 

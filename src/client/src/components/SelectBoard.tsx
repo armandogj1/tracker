@@ -9,14 +9,14 @@ const style = {
     height: '200px',
     width: '500px',
     margin: '10px',
-    'border-radius': '10px',
+    borderRadius: '10px',
   },
   select: {
-    'font-size': '1.5em',
+    fontSize: '1.5em',
     width: '150px',
     border: 'none',
     backgroundColor: 'transparent',
-    'border-bottom': '1px solid black',
+    borderBottom: '1px solid black',
   },
   button: {
     color: '#fff',
@@ -41,12 +41,10 @@ const SelectBoard = ({ history }: RouteComponentProps) => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!selected) {
-      console.log('triggered break out in SelectBoard');
       return;
     }
 
     if (isErrorBoard) {
-      console.log('get board threw error and a fetch was not done');
       return;
     }
 
@@ -64,6 +62,7 @@ const SelectBoard = ({ history }: RouteComponentProps) => {
         <select
           style={style.select}
           placeholder='Select Board'
+          defaultValue='Boards'
           value={selected}
           onChange={handleChange}
         >

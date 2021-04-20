@@ -5,9 +5,8 @@ import { MouseEventHandler } from 'react';
 
 const NavBar = () => {
   const { pathname } = useLocation();
+  const [boardId] = pathname.split('/').slice(-1);
   const history = useHistory();
-
-  console.log(history);
 
   const handleClick: MouseEventHandler<HTMLAnchorElement> = (e) => {
     e.preventDefault();
@@ -17,9 +16,9 @@ const NavBar = () => {
   return (
     <nav>
       <Link to='/'>Home</Link>
-      {/\/board\/.+/.test(pathname) && <Link to='/metrics'>Metrics</Link>}
-      {pathname === '/metrics' && (
-        <a href='/board' onClick={handleClick}>
+      {/\/board\/.+/.test(pathname) && <Link to={`/metrics/${boardId}`}>Metrics</Link>}
+      {/\/metrics\/.+/.test(pathname) && (
+        <a href={`/board/${boardId}`} onClick={handleClick}>
           Board
         </a>
       )}

@@ -5,9 +5,11 @@ import { Bar, Line } from 'react-chartjs-2';
 
 import makeDateDataList from '../helpers/makeDateDataList';
 import makeDateLabels from '../helpers/makeDateLabels';
+import { RouteComponentProps } from 'react-router';
 
-const Metrics = () => {
+const Metrics = ({ match }: RouteComponentProps) => {
   const queryClient = useQueryClient();
+  const { boardId = '' } = match.params as { boardId: string };
 
   const {
     tickets,
@@ -15,7 +17,7 @@ const Metrics = () => {
   }: {
     statuses: string[];
     tickets: { [key: string]: ITicket };
-  } = queryClient.getQueryData(['board']) || { statuses: [], tickets: {} };
+  } = queryClient.getQueryData(['board', boardId]) || { statuses: [], tickets: {} };
 
   const applicationsCount = statuses.map((status) => {
     return Number(Object.values(tickets).filter((t) => t.status === status).length);

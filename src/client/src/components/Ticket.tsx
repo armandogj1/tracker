@@ -8,7 +8,14 @@ const style = {
   borderRadius: '5px',
 };
 
-const Ticket = ({ ticket_id, description, title, link, status, timestamps }: ITicket) => {
+interface ITicketProps {
+  ticket: ITicket;
+  board_id: string;
+  status: string;
+}
+
+const Ticket = ({ ticket, board_id, status }: ITicketProps) => {
+  const { ticket_id, description, title, link } = ticket;
   const [isOpen, setOpen] = useState(false);
 
   const handleDrag: DragEventHandler<HTMLElement> = (e) => {
@@ -31,10 +38,7 @@ const Ticket = ({ ticket_id, description, title, link, status, timestamps }: ITi
     >
       <h3>{title}</h3>
       {isOpen && (
-        <EditViewTicketModal
-          ticket={{ ticket_id, status, title, description, link, timestamps }}
-          setOpen={setOpen}
-        />
+        <EditViewTicketModal ticket={ticket} board_id={board_id} setOpen={setOpen} />
       )}
     </article>
   );

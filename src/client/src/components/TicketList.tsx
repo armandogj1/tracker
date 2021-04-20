@@ -61,7 +61,7 @@ const TicketList = ({
       <ul>
         {tickets.map((tix) => (
           <li key={tix.ticket_id}>
-            <Ticket {...tix} status={status} />
+            <Ticket ticket={tix} status={status} board_id={board_id} />
           </li>
         ))}
       </ul>
