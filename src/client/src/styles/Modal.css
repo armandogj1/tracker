@@ -1,0 +1,55 @@
+.modal {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  background-color: var(--bg-color-mid);
+  color: black;
+  border-radius: 10px;
+  padding: 1em;
+  top: 50%;
+  left: 50%;
+  z-index: 3;
+  align-items: center;
+  height: 500px;
+  width: 600px;
+  transform: translate(-50%, -50%);
+}
+
+.login {
+  height: 200px;
+}
+
+.modal form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 90%;
+}
+
+h3 {
+  margin: 0;
+  font-size: var(--heading-3);
+}
+
+button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: var(--link-color);
+  text-decoration: underline;
+}
+
+.submit,
+.submit .ticket-modal {
+  background-color: var(--bg-color-dark);
+  color: var(--color-mid-light);
+  font-size: var(--text-large);
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+}
+
+.submit .ticket-modal {
+  text-decoration: none;
+}

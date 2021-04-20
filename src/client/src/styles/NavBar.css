@@ -1,7 +1,7 @@
 nav {
   display: flex;
   align-items: center;
-  font-size: 1.25rem;
+  font-size: var(--heading-4);
   font-weight: 700;
   width: 50vw;
   /* justify-content: space-evenly; */
@@ -14,7 +14,7 @@ nav button {
   align-items: center;
   /* height: 75px; */
   text-decoration: none;
-  color: hsl(0, 0%, 85%);
+  color: var(--color-light-dark);
   margin: 0 1em;
 }
 
@@ -33,7 +33,7 @@ nav button {
 
 nav a:focus,
 nav button:focus {
-  color: hsl(33, 100%, 70%);
+  color: var(--link-color);
   font-size: 1.5rem;
   outline: none;
 }

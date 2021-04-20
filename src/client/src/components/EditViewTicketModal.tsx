@@ -9,6 +9,7 @@ import { useQueryClient } from 'react-query';
 import { ITicket } from '../API_Helpers/Board';
 import { ITokenData } from '../helpers/getToken';
 import { useDeleteTicket, useUpdateTicket } from '../hooks/useTicket';
+import '../styles/Modal.css';
 
 const style = {
   main: {
@@ -73,7 +74,7 @@ const EditViewTicketModal = ({
 
   return (
     <form
-      className='modal'
+      className='modal ticket-modal'
       style={style.main}
       onChange={handleChange}
       onSubmit={handleSubmit}
@@ -106,9 +107,13 @@ const EditViewTicketModal = ({
           ))}
         </select>
       </label>
-      <input type='submit' value='Submit' />
-      <button onClick={() => setOpen((prev) => !prev)}>Cancel</button>
-      <button onClick={handleDelete}>Delete</button>
+      <input className='submit' type='submit' value='Submit' />
+      <button className='submit' onClick={() => setOpen((prev) => !prev)}>
+        Cancel
+      </button>
+      <button className='submit' onClick={handleDelete}>
+        Delete
+      </button>
     </form>
   );
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useQueryClient } from 'react-query';
 import TicketList from './TicketList';
+import '../styles/TicketLists.css';
 
 export interface ITicket {
   ticket_id: string;
@@ -32,7 +33,7 @@ const TicketLists = ({ board_id }: { board_id: string }) => {
     statuses = [],
     tickets = {} as ITickets,
   }: { statuses?: string[]; tickets?: ITickets } =
-    queryClient.getQueryData(['board']) || {};
+    queryClient.getQueryData(['board', board_id]) || {};
 
   return (
     <section className='tix-lists' style={style}>

@@ -4,9 +4,8 @@ import { ITicket } from './TicketLists';
 
 const style = {
   color: 'black',
-  backgroundColor: '#fff',
+
   borderRadius: '5px',
-  padding: '10px',
 };
 
 const Ticket = ({ ticket_id, description, title, link, status, timestamps }: ITicket) => {
@@ -21,7 +20,7 @@ const Ticket = ({ ticket_id, description, title, link, status, timestamps }: ITi
 
   return (
     <article
-      style={style}
+      className='ticket'
       key={ticket_id}
       draggable
       onClick={() => {

@@ -25,6 +25,10 @@ const getBoard = (board_id: string, token: string): Promise<IBoard> => {
     URL = `http://localhost:4000${URL}`;
   }
 
+  if (!board_id) {
+    return Promise.reject(new Error('board_id not provided'));
+  }
+
   return axios.get(URL, { headers: { authorization: token } }).then(({ data }) => data);
 };
 

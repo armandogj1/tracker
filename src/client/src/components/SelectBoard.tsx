@@ -1,7 +1,7 @@
-import React, { ChangeEvent, Dispatch, FormEvent, SetStateAction, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { useQueryClient } from 'react-query';
 import { ITokenData } from '../helpers/getToken';
-import { useBoardIds } from '../hooks/useBoard';
+import { useBoard, useBoardIds } from '../hooks/useBoard';
 import { RouteComponentProps } from 'react-router-dom';
 
 const style = {
@@ -10,11 +10,6 @@ const style = {
     width: '500px',
     margin: '10px',
     'border-radius': '10px',
-    backgroundColor: '#ffffff80',
-    display: 'flex',
-    'flex-direction': 'column',
-    'align-items': 'center',
-    'justify-content': 'space-evenly',
   },
   select: {
     'font-size': '1.5em',
@@ -38,12 +33,22 @@ const SelectBoard = ({ history }: RouteComponentProps) => {
   };
   const { data, isError } = useBoardIds(authData.token);
   const [selected, setSelected] = useState('');
+  const { isError: isErrorBoard } = useBoard(selected, authData.token);
+
   if (isError) return <p>Something went wrong getting Boards</p>;
   if (!data) return <p>No Boards</p>;
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!selected) return;
+    if (!selected) {
+      console.log('triggered break out in SelectBoard');
+      return;
+    }
+
+    if (isErrorBoard) {
+      console.log('get board threw error and a fetch was not done');
+      return;
+    }
 
     history.push(`board/${selected}`);
   };
@@ -72,7 +77,7 @@ const SelectBoard = ({ history }: RouteComponentProps) => {
           ))}
         </select>
       </label>
-      <input style={style.button} type='submit' value='Submit' />
+      <input className='submit' type='submit' value='Submit' />
     </form>
   );
 };

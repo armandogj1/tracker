@@ -1,12 +1,12 @@
 import React, {
   ChangeEventHandler,
-  Dispatch,
   FormEventHandler,
-  SetStateAction,
+  MouseEventHandler,
   useState,
 } from 'react';
-import { useLogin } from '../hooks/useAuth';
+import { useIsAuth, useLogin, useNewUser } from '../hooks/useAuth';
 import { RouteComponentProps } from 'react-router-dom';
+import '../styles/Modal.css';
 
 const style = {
   main: {
@@ -22,10 +22,17 @@ const style = {
   },
 };
 
-const LogIn = ({ history }: RouteComponentProps) => {
+const LogInOrCreate = ({ history }: RouteComponentProps) => {
   const defaultInputs = { email: '', password: '' };
   const [inputs, setInputs] = useState(defaultInputs);
-  const { mutateAsync } = useLogin();
+  const [action, setAction] = useState('login');
+  const { data: token } = useIsAuth();
+  const { mutateAsync: logUser } = useLogin();
+  const { mutateAsync: createUser } = useNewUser();
+
+  if (token) {
+    history.push('/');
+  }
 
   const handleChange: ChangeEventHandler<HTMLFormElement> = (e) => {
     const newInputs = { ...inputs, [e.target.name]: e.target.value };
@@ -35,31 +42,44 @@ const LogIn = ({ history }: RouteComponentProps) => {
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    mutateAsync(inputs)
+    if (action === 'login') {
+      return logUser(inputs)
+        .then(() => history.push('/'))
+        .catch((e) => console.log(e));
+    }
+
+    createUser(inputs)
       .then(() => history.push('/'))
       .catch((e) => console.log(e));
   };
 
+  const handleAction: MouseEventHandler<HTMLButtonElement> = (e) => {
+    if (action === 'login') return setAction('createAccount');
+
+    setAction('login');
+  };
+
   return (
-    <form
-      className='modal'
-      style={style.main}
-      onChange={handleChange}
-      onSubmit={handleSubmit}
-    >
-      <label>
-        Email:
-        <input type='text' name='email' value={inputs.email} />
-      </label>
+    <div className='modal login'>
+      <h3>{action === 'login' ? 'Login' : 'Sign Up'}</h3>
+      <form onChange={handleChange} onSubmit={handleSubmit}>
+        <label>
+          Email:
+          <input type='text' name='email' value={inputs.email} />
+        </label>
 
-      <label>
-        Password:
-        <input type='text' name='password' value={inputs.password} />
-      </label>
+        <label>
+          Password:
+          <input type='text' name='password' value={inputs.password} />
+        </label>
 
-      <input type='submit' value='Submit' />
-    </form>
+        <input type='submit' value='Submit' />
+      </form>
+      <button onClick={handleAction}>
+        {action === 'login' ? 'Create Account' : 'Login'}
+      </button>
+    </div>
   );
 };
 
-export default LogIn;
+export default LogInOrCreate;

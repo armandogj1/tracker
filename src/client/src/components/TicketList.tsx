@@ -9,14 +9,7 @@ import { ITicket } from './TicketLists';
 const style = {
   main: {
     width: '300px',
-    backgroundColor: '#cdcdcd',
     color: 'black',
-  },
-  ul: {
-    // 'list-style': 'none',
-  },
-  button: {
-    width: '100px',
   },
 };
 
@@ -65,14 +58,14 @@ const TicketList = ({
           setCreateOpen={setCreateOpen}
         />
       )}
-      <ul style={style.ul}>
+      <ul>
         {tickets.map((tix) => (
           <li key={tix.ticket_id}>
             <Ticket {...tix} status={status} />
           </li>
         ))}
       </ul>
-      <button style={style.button} onClick={() => setCreateOpen((prev) => !prev)}>
+      <button className='plus-button' onClick={() => setCreateOpen((prev) => !prev)}>
         +
       </button>
     </div>

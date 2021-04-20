@@ -12,7 +12,7 @@
   font-size: 1.5em;
   font-weight: 700;
   color: #333;
-  background-color: hsl(0, 0%, 70%);
+  background-color: var(--bg-color-mid);
   border-radius: 10px;
   line-height: 200px;
   justify-content: center;
