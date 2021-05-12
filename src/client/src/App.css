@@ -66,3 +66,7 @@ button {
   top: 1.75em;
   right: 14em;
 }
+
+a:focus-visible {
+  outline: none;
+}

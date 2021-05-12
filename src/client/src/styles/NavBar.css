@@ -43,3 +43,7 @@ nav button:hover {
   text-decoration: underline;
   cursor: pointer;
 }
+
+:is(nav a, nav button):focus-visible {
+  color: var(--color-light-dark);
+}
