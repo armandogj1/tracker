@@ -1,4 +1,4 @@
-import React, { ComponentProps, ReactElement } from 'react';
+import React from 'react';
 
 const SmallText = (props: { type?: string; name: string; value: string }) => (
   <input {...props} />
@@ -12,7 +12,7 @@ interface IElements {
   email: JSX.IntrinsicElements['input'];
 }
 
-type DynamicInputElementProps = {
+export type DynamicInputElementProps = {
   kind: keyof IElements;
   type?: 'text' | 'url' | 'email';
   name: string;

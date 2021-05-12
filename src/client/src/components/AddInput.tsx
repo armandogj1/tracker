@@ -1,4 +1,4 @@
-import { Dispatch, FormEvent, FormEventHandler, SetStateAction, useState } from 'react';
+import { Dispatch, FormEventHandler, SetStateAction, useState } from 'react';
 import { TDynamicInputTuple } from './DynamicTicketModal';
 
 const AddInput = ({
